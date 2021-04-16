@@ -1,7 +1,7 @@
 {
   "name": "libms-frontend",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@reduxjs/toolkit": "1.4.0",
     "@testing-library/jest-dom": "5.11.4",
@@ -26,7 +26,7 @@
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-react-hooks": "4.1.0",
     "fontfaceobserver": "2.1.0",
-    "husky": "4.2.5",
+    "husky": "6.0.0",
     "i18next": "19.7.0",
     "i18next-browser-languagedetector": "6.0.1",
     "i18next-scanner": "2.11.0",
@@ -77,7 +77,10 @@
     "generate": "cross-env TS_NODE_PROJECT='./internals/ts-node.tsconfig.json' plop --plopfile internals/generators/plopfile.ts",
     "cleanAndSetup": "ts-node --project=./internals/ts-node.tsconfig.json ./internals/scripts/clean.ts",
     "prettify": "prettier --write",
-    "extract-messages": "i18next-scanner --config=internals/extractMessages/i18next-scanner.config.js"
+    "extract-messages": "i18next-scanner --config=internals/extractMessages/i18next-scanner.config.js",
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -106,11 +109,6 @@
       "prettier --write"
     ]
   },
-  "husky(remove-everything-in-these-parentheses.See-the-issue-#29)": {
-    "hooks": {
-      "pre-commit": "yarn run checkTs && lint-staged"
-    }
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
@@ -128,5 +126,8 @@
         "statements": 90
       }
     }
+  },
+  "devDependencies": {
+    "pinst": "2.1.6"
   }
 }
