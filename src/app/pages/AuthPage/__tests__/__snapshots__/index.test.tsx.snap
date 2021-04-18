@@ -9,6 +9,10 @@ exports[`<AuthPage  /> should match snapshot 1`] = `
   background-color: #203549;
 }
 
+.c3 {
+  background-color: #203549;
+}
+
 .c0 {
   background-color: #f6f8fb;
 }
@@ -166,5 +170,17 @@ exports[`<AuthPage  /> should match snapshot 1`] = `
       </div>
     </div>
   </div>
+  <footer
+    class="c3 text-lg-start"
+  >
+    <div
+      class="container"
+    >
+      <img
+        alt=""
+        src="FOOTER-LOGO.png"
+      />
+    </div>
+  </footer>
 </div>
 `;
