@@ -1,10 +1,9 @@
 import * as React from 'react';
-import Form from 'react-bootstrap/Form';
 import { RegistrationForm } from './RegistrationForm';
 import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
 import { RegisterValidationScheme } from 'app/services/validation/schemes/Register';
 import { useForm } from 'react-hook-form';
-import Col from 'react-bootstrap/Col';
+import { Button, Col, Form } from 'react-bootstrap';
 
 export function RegisterForm() {
   const validEmailDomains = ['smu.tn', 'msb.tn', 'medtech.tn', 'lci.tn'];
@@ -139,13 +138,9 @@ export function RegisterForm() {
           {errors.confirmPassword?.message}
         </Form.Control.Feedback>
       </Form.Group>
-      <button
-        type="submit"
-        className="btn btn-primary w-75"
-        data-testid="submit-button"
-      >
+      <Button type="submit" className="w-75" data-testid="submit-button">
         Submit
-      </button>
+      </Button>
     </Form>
   );
 }

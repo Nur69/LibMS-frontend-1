@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Form from 'react-bootstrap/Form';
+import { Form, Button } from 'react-bootstrap';
+
 export function LoginForm() {
   return (
     <Form className="mb-3" data-testid="login-form">
@@ -14,9 +15,9 @@ export function LoginForm() {
         <Form.Label htmlFor="password">Password</Form.Label>
         <Form.Control type="password" className="w-75" id="password" />
       </Form.Group>
-      <button type="submit" className="btn btn-primary w-75">
+      <Button type="submit" className="w-75">
         Submit
-      </button>
+      </Button>
     </Form>
   );
 }

@@ -5,9 +5,7 @@
  */
 import * as React from 'react';
 import { Header } from 'app/components/Header';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Row, Col, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Footer } from 'app/components/Footer';
