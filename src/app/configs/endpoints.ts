@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_FLOW_BACKEND_URL;
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 const SUFFIX = 'api';
 
 export const AUTH_ENDPOINTS = {

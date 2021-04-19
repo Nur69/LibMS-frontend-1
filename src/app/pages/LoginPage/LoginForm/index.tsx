@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useUserSlice } from './slice';
 
 export function LoginForm() {

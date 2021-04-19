@@ -1,17 +1,15 @@
 import { AUTH_ENDPOINTS } from 'app/configs/endpoints';
-import { take, call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { UserLoggedIn } from 'types/UserLoggedIn';
 import { request } from 'utils/request';
 import { userActions as actions, userActions } from '.';
 
 // function* doSomething() {}
 
-export function* loginUserSaga({ email, password }) {
-  // yield takeLatest(actions.someAction.type, doSomething);
-
+export function* loginUserSaga(action) {
   try {
     // Saga's way of dispatching actions
-    yield put(userActions.requestLogin({}));
+    yield put(userActions.requestLogin({ ...action.payload }));
     const requestLogin: UserLoggedIn = yield call(
       request,
       AUTH_ENDPOINTS.login,
@@ -20,7 +18,10 @@ export function* loginUserSaga({ email, password }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email: action.payload.email,
+          password: action.payload.password,
+        }),
       },
     );
     yield put(
@@ -34,4 +35,8 @@ export function* loginUserSaga({ email, password }) {
       yield put(userActions.loginFailed({ message: 'WRONG_CREDENTIALS' }));
     }
   }
+}
+
+export function* rootLoginUserSaga() {
+  yield takeLatest(actions.requestLogin.type, loginUserSaga);
 }
