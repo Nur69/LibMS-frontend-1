@@ -4,7 +4,12 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { useUserSlice } from './slice';
-import { selectIsFetching, selectIsError, selectErrorMessage, selectIsSuccess } from './slice/selectors';
+import {
+  selectIsFetching,
+  selectIsError,
+  selectErrorMessage,
+  selectIsSuccess,
+} from './slice/selectors';
 
 export function LoginForm() {
   interface LoginForm {
@@ -33,10 +38,7 @@ export function LoginForm() {
 
   const alert = (
     <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-      
-      <p>
-      { errorMessage }
-      </p>
+      <p>{errorMessage}</p>
     </Alert>
   );
 
@@ -71,7 +73,7 @@ export function LoginForm() {
       <Button type="submit" className="w-75">
         Submit
       </Button>
-      {!!isSuccess && <Redirect to="/user"/>}
+      {!!isSuccess && <Redirect to="/user" />}
     </Form>
   );
 }

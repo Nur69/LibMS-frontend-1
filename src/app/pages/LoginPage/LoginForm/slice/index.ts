@@ -28,7 +28,11 @@ const slice = createSlice({
     },
     loginSuccess(
       state,
-      action: PayloadAction<{ accesToken: string; refreshToken: string; email: string }>,
+      action: PayloadAction<{
+        accesToken: string;
+        refreshToken: string;
+        email: string;
+      }>,
     ) {
       state.isSuccess = true;
       state.isError = false;

@@ -9,25 +9,25 @@ export const selectUser = createSelector([selectSlice], state => state);
 
 export const selectIsError = createSelector(
   [selectSlice],
-  loginUserFormState => loginUserFormState.isError
+  loginUserFormState => loginUserFormState.isError,
 );
 
 export const selectErrorMessage = createSelector(
   [selectSlice],
-  loginUserFormState => loginUserFormState.errorMessage
+  loginUserFormState => loginUserFormState.errorMessage,
 );
 
 export const selectIsFetching = createSelector(
   [selectSlice],
-  loginUserFormState => loginUserFormState.isFetching
+  loginUserFormState => loginUserFormState.isFetching,
 );
 
 export const selectIsSuccess = createSelector(
   [selectSlice],
-  loginUserFormState => loginUserFormState.isSuccess
+  loginUserFormState => loginUserFormState.isSuccess,
 );
 
 export const selectEmail = createSelector(
   [selectSlice],
-  loginUserFormState => loginUserFormState.email
+  loginUserFormState => loginUserFormState.email,
 );

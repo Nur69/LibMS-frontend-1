@@ -32,7 +32,11 @@ export function* loginUserSaga(action) {
     );
   } catch (error) {
     if (error.response?.status === 401) {
-      yield put(userActions.loginFailed({ message: 'Login Failed: Please check your credentials' }));
+      yield put(
+        userActions.loginFailed({
+          message: 'Login Failed: Please check your credentials',
+        }),
+      );
     }
   }
 }
