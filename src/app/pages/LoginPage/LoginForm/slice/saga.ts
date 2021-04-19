@@ -9,7 +9,6 @@ import { userActions as actions, userActions } from '.';
 export function* loginUserSaga(action) {
   try {
     // Saga's way of dispatching actions
-    yield put(userActions.requestLogin({ ...action.payload }));
     const requestLogin: UserLoggedIn = yield call(
       request,
       AUTH_ENDPOINTS.login,
@@ -32,7 +31,7 @@ export function* loginUserSaga(action) {
     );
   } catch (error) {
     if (error.response?.status === 401) {
-      yield put(userActions.loginFailed({ message: 'WRONG_CREDENTIALS' }));
+      yield put(userActions.loginFailed({ message: 'Login Failed: Please check your credentials' }));
     }
   }
 }

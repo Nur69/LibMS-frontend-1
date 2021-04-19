@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useUserSlice } from './slice';
+import { selectIsFetching, selectIsError, selectErrorMessage } from './slice/selectors';
 
 export function LoginForm() {
   interface LoginForm {
@@ -19,12 +20,30 @@ export function LoginForm() {
   };
   const { register, handleSubmit } = useForm();
 
+  const isFetching = useSelector(selectIsFetching);
+  const isError = useSelector(selectIsError);
+  const errorMessage = useSelector(selectErrorMessage);
+
+  // Local state for the alert
+
+  const [showAlert, setShowAlert] = React.useState(true);
+
+  const alert = (
+    <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+      
+      <p>
+      { errorMessage }
+      </p>
+    </Alert>
+  );
+
   return (
     <Form
       className="mb-3"
       data-testid="login-form"
       onSubmit={handleSubmit(onSubmit)}
     >
+      {!!isError && alert}
       <Form.Group>
         <Form.Label htmlFor="emailAddr">Email address</Form.Label>
         <Form.Control

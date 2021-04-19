@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { loginUserSaga } from './saga';
+import { rootLoginUserSaga } from './saga';
 import { UserState } from './types';
 
 export const initialState: UserState = {
@@ -52,7 +52,7 @@ export const { actions: userActions } = slice;
 
 export const useUserSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
-  useInjectSaga({ key: slice.name, saga: loginUserSaga });
+  useInjectSaga({ key: slice.name, saga: rootLoginUserSaga });
   return { actions: slice.actions };
 };
 
