@@ -28,7 +28,7 @@ const slice = createSlice({
     },
     loginSuccess(
       state,
-      action: PayloadAction<{ accesToken: string; refreshToken: string }>,
+      action: PayloadAction<{ accesToken: string; refreshToken: string; email: string }>,
     ) {
       state.isSuccess = true;
       state.isError = false;
@@ -36,6 +36,7 @@ const slice = createSlice({
       // Just for testing, they need to be moved to local storage
       state.accessToken = action.payload.accesToken;
       state.refreshToken = action.payload.refreshToken;
+      state.email = action.payload.email;
     },
     loginFailed(state, action: PayloadAction<{ message: string }>) {
       state.isSuccess = false;

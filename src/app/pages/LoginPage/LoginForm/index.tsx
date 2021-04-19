@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
 import { useUserSlice } from './slice';
-import { selectIsFetching, selectIsError, selectErrorMessage } from './slice/selectors';
+import { selectIsFetching, selectIsError, selectErrorMessage, selectIsSuccess } from './slice/selectors';
 
 export function LoginForm() {
   interface LoginForm {
@@ -20,9 +21,11 @@ export function LoginForm() {
   };
   const { register, handleSubmit } = useForm();
 
+  // Could use this for button spinner
   const isFetching = useSelector(selectIsFetching);
   const isError = useSelector(selectIsError);
   const errorMessage = useSelector(selectErrorMessage);
+  const isSuccess = useSelector(selectIsSuccess);
 
   // Local state for the alert
 
@@ -68,6 +71,7 @@ export function LoginForm() {
       <Button type="submit" className="w-75">
         Submit
       </Button>
+      {!!isSuccess && <Redirect to="/user"/>}
     </Form>
   );
 }

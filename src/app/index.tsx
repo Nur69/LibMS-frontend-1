@@ -17,6 +17,7 @@ import { LoginPage } from './pages/LoginPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
 
 import { useTranslation } from 'react-i18next';
+import { UserGreeting } from './pages/UserGreeting/Loadable';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -45,6 +46,7 @@ export function App() {
         <Route exact path="/auth" component={AuthPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
+        <Route exact path="/user" component={UserGreeting} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>

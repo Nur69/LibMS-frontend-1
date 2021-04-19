@@ -27,6 +27,7 @@ export function* loginUserSaga(action) {
       userActions.loginSuccess({
         refreshToken: requestLogin.refreshToken,
         accesToken: requestLogin.accessToken,
+        email: action.payload.email,
       }),
     );
   } catch (error) {
