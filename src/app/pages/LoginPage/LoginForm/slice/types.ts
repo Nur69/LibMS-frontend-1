@@ -1,5 +1,5 @@
 /* --- STATE --- */
-export interface UserState {
+export interface LoginUserState {
   email: string;
   isFetching: boolean;
   isSuccess: boolean;
@@ -7,5 +7,4 @@ export interface UserState {
   errorMessage: string;
   accessToken: string;
   refreshToken: string;
-  password: string;
 }

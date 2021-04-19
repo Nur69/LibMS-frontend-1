@@ -27,6 +27,7 @@ export function LoginForm() {
   const { register, handleSubmit } = useForm();
 
   // Could use this for button spinner
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isFetching = useSelector(selectIsFetching);
   const isError = useSelector(selectIsError);
   const errorMessage = useSelector(selectErrorMessage);
@@ -34,6 +35,7 @@ export function LoginForm() {
 
   // Local state for the alert
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showAlert, setShowAlert] = React.useState(true);
 
   const alert = (

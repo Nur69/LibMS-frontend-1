@@ -14,7 +14,6 @@ import { selectEmail } from '../LoginPage/LoginForm/slice/selectors';
 interface Props {}
 
 export function UserGreeting(props: Props) {
-
   const email = useSelector(selectEmail);
 
   return (

@@ -2,9 +2,9 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { rootLoginUserSaga } from './saga';
-import { UserState } from './types';
+import { LoginUserState } from './types';
 
-export const initialState: UserState = {
+export const initialState: LoginUserState = {
   email: '',
   isFetching: false,
   isSuccess: false,
@@ -12,13 +12,10 @@ export const initialState: UserState = {
   errorMessage: '',
   accessToken: '',
   refreshToken: '',
-  // This a bad practice, credentials should not be in the store
-  // I'm just doing this for the sake of using redux-toolkit
-  password: '',
 };
 
 const slice = createSlice({
-  name: 'user',
+  name: 'loginUser',
   initialState,
   reducers: {
     // These are actions

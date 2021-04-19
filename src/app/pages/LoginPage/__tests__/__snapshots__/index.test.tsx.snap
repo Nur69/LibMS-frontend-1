@@ -109,6 +109,7 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
               <input
                 class="w-75 form-control"
                 id="emailAddr"
+                name="email"
                 type="email"
               />
               <small
@@ -130,11 +131,12 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
               <input
                 class="w-75 form-control"
                 id="password"
+                name="password"
                 type="password"
               />
             </div>
             <button
-              class="btn btn-primary w-75"
+              class="w-75 btn btn-primary"
               type="submit"
             >
               Submit
