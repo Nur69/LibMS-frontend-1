@@ -7,6 +7,6 @@
 import { lazyLoad } from 'utils/loadable';
 
 export const AddBookPage = lazyLoad(
-  () => import('./AddBookForm/index'),
-  module => module.AddBook,
+  () => import('./index'),
+  module => module.AddBookPage,
 );
