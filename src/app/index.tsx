@@ -15,6 +15,7 @@ import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { AuthPage } from './pages/AuthPage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
+import { AddBookPage } from './pages/AddBookPage/Loadable';
 
 import { useTranslation } from 'react-i18next';
 import { UserGreeting } from './pages/UserGreeting/Loadable';
@@ -47,6 +48,7 @@ export function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/user" component={UserGreeting} />
+        <Route exact path="/addBook" component={AddBookPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
