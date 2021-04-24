@@ -3,11 +3,19 @@ import { render } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { RegisterPage } from '..';
 import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { configureAppStore } from 'store/configureStore';
+
+const store = configureAppStore();
 
 const renderWithRouter = (component: JSX.Element) => {
   const history = createMemoryHistory();
   return {
-    ...render(<Router history={history}>{component}</Router>),
+    ...render(
+      <Provider store={store}>
+        <Router history={history}>{component}</Router>{' '}
+      </Provider>,
+    ),
   };
 };
 
