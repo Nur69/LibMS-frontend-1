@@ -3,12 +3,39 @@ import { RegistrationForm } from './RegistrationForm';
 import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
 import { RegisterValidationScheme } from 'app/services/validation/schemes/Register';
 import { useForm } from 'react-hook-form';
-import { Button, Col, Form } from 'react-bootstrap';
+import { Button, Col, Form, Alert } from 'react-bootstrap';
+import { useRegistrationSlice } from './slice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectErrorMessage,
+  selectIsError,
+  selectIsSuccess,
+} from './slice/selectors';
+import { Redirect } from 'react-router';
 
 export function RegisterForm() {
   const validEmailDomains = ['smu.tn', 'msb.tn', 'medtech.tn', 'lci.tn'];
-  const onSubmit = (data: RegistrationForm): void =>
-    console.info(JSON.stringify(data));
+
+  const { actions } = useRegistrationSlice();
+  const dispatch = useDispatch();
+
+  const onSubmit = (data: RegistrationForm): void => {
+    data = { ...data, email: data.emailName + '' + data.emailDomain };
+    dispatch(actions.requestRegister(data));
+  };
+
+  const errorMessage = useSelector(selectErrorMessage);
+  const isError = useSelector(selectIsError);
+  const isSuccess = useSelector(selectIsSuccess);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [showAlert, setShowAlert] = React.useState(true);
+
+  const alert = (
+    <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+      <p>{errorMessage}</p>
+    </Alert>
+  );
+
   const resolver = useYupValidationResolver(RegisterValidationScheme);
   const {
     register,
@@ -24,6 +51,7 @@ export function RegisterForm() {
       data-testid="registration-form"
       onSubmit={handleSubmit(onSubmit)}
     >
+      {!!isError && alert}
       <Form.Group>
         <Form.Label htmlFor="firstName">First name</Form.Label>
         <Form.Control
@@ -141,6 +169,7 @@ export function RegisterForm() {
       <Button type="submit" className="w-75" data-testid="submit-button">
         Submit
       </Button>
+      {!!isSuccess && <Redirect to="/login" />}
     </Form>
   );
 }

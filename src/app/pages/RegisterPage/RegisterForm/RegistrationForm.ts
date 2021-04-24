@@ -1,7 +1,8 @@
 export interface RegistrationForm {
   firstName: String;
   lastName: String;
-  email: String;
+  emailName: String;
+  email: string;
   emailDomain: String;
   password: String;
   confirmPassword?: String;

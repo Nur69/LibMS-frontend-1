@@ -5,7 +5,7 @@ import { initialState } from '.';
 
 const selectSlice = (state: RootState) => state.loginUser || initialState;
 
-export const selectUser = createSelector([selectSlice], state => state);
+//export const selectUser = createSelector([selectSlice], state => state);
 
 export const selectIsError = createSelector(
   [selectSlice],
