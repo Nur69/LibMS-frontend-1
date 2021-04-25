@@ -49,8 +49,6 @@ export function AddBook() {
         />
       );
     }
-    console.log('yah benek');
-    return <></>;
   };
 
   const onSubmit = (data: AddBookForm): void =>
