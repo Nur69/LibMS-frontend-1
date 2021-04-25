@@ -1,5 +1,8 @@
 import * as yup from 'yup';
 
+const FILE_SIZE = 1000000; // 1MB
+export const SUPPORTED_IMAGE_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+
 export const ValidationSchema = yup.object().shape({
   isbn: yup
     .string()
@@ -19,4 +22,19 @@ export const ValidationSchema = yup.object().shape({
       'Date format should be dd-mm-yyyy',
     )
     .required('Published Date is required'),
+  bookCover: yup
+    .mixed()
+    .required('A file is required')
+    .test(
+      'fileSize',
+      'File too large (Max size: 1MB)',
+      (fileList: FileList) => {
+        const file: File = fileList[0];
+        return file && file.size < FILE_SIZE;
+      },
+    )
+    .test('fileFormat', 'Unsupported format', (fileList: FileList) => {
+      const file: File = fileList[0];
+      return file && SUPPORTED_IMAGE_FORMATS.includes(file.type);
+    }),
 });

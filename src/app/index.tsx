@@ -48,7 +48,7 @@ export function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/user" component={UserGreeting} />
-        <Route exact path="/addBook" component={AddBookPage} />
+        <Route exact path="/add-book" component={AddBookPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
