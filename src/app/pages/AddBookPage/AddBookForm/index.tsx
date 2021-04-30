@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { Button, Col, Form, Row, Image } from 'react-bootstrap';
 import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
 import {
@@ -7,6 +7,7 @@ import {
   ValidationSchema,
 } from 'app/services/validation/schemes/AddBook';
 import { AddBookForm } from './AddBookForm';
+import { CustomInputField } from '../components/CustomInputField';
 
 export function AddBook() {
   const initialState = {
@@ -55,111 +56,61 @@ export function AddBook() {
     console.info(JSON.stringify(data));
 
   const resolver = useYupValidationResolver(ValidationSchema);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<any>({
+  const methods = useForm<any>({
     resolver,
   });
   return (
-    <>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider {...methods}>
+      <Form onSubmit={methods.handleSubmit(onSubmit)}>
         <Row>
           <Col xs={6} md={6}>
-            <Form.Group>
-              <Form.Label htmlFor="isbn">ISBN</Form.Label>
-              <Form.Control
-                type="text"
-                id="isbn"
-                aria-label="isbn"
-                {...register('isbn')}
-                isInvalid={!!errors.isbn}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.isbn?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="title">Title</Form.Label>
-              <Form.Control
-                type="text"
-                id="title"
-                aria-label="title"
-                aria-describedby="title"
-                {...register('title')}
-                isInvalid={!!errors.title}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.title?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="subtitle">Subtitle</Form.Label>
-              <Form.Control
-                type="text"
-                id="subtitle"
-                {...register('subtitle')}
-                isInvalid={!!errors.subtitle}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.subtitle?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="originTitle">Origin Title</Form.Label>
-              <Form.Control
-                type="text"
-                id="originTitle"
-                {...register('originTitle')}
-                isInvalid={!!errors.originTitle}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.originTitle?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="author">Author</Form.Label>
-              <Form.Control
-                type="text"
-                id="author"
-                aria-describedby="authorHelp"
-                aria-label="author"
-                {...register('author')}
-                isInvalid={!!errors.author}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.author?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="publisher">Publisher</Form.Label>
-              <Form.Control
-                type="text"
-                id="publisher"
-                aria-label="publisher"
-                {...register('publisher')}
-                isInvalid={!!errors.publisher}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.publisher?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="publishedDate">Published Date</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="DD/MM/YYYY"
-                id="publishedDate"
-                aria-label="publishedDate"
-                {...register('publishedDate')}
-                isInvalid={!!errors.publishedDate}
-              />
+            <CustomInputField
+              title="ISBN"
+              id="isbn"
+              type="text"
+              htmlFor="isbn"
+              ariaLabel="isbn"
+            />
 
-              <Form.Control.Feedback type="invalid">
-                {errors.publishedDate?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
+            <CustomInputField
+              title="Title"
+              id="title"
+              type="text"
+              htmlFor="title"
+              ariaLabel="title"
+            />
+
+            <CustomInputField
+              title="Subtitle"
+              id="subtitle"
+              type="text"
+              htmlFor="subtitle"
+              ariaLabel="subtitle"
+            />
+
+            <CustomInputField
+              title="Original Title"
+              id="originTitle"
+              type="text"
+              htmlFor="originTitle"
+              ariaLabel="originTitle"
+            />
+
+            <CustomInputField
+              title="Publisher"
+              id="publisher"
+              type="text"
+              htmlFor="publisher"
+              ariaLabel="publisher"
+            />
+
+            <CustomInputField
+              title="Published Date"
+              id="publishedDate"
+              type="text"
+              htmlFor="publishedDate"
+              ariaLabel="publishedDate"
+            />
           </Col>
           <Col xs={6} md={4}>
             <Form.Group>
@@ -170,15 +121,15 @@ export function AddBook() {
                 <Form.File.Input
                   type="file"
                   accept="image/x-png,image/jpeg"
-                  {...register('bookCover')}
+                  {...methods.register('bookCover')}
                   onChange={handleImageChange}
-                  isInvalid={!!errors.bookCover}
+                  isInvalid={!!methods.formState.errors.bookCover}
                 />
                 <Form.File.Label data-browse="Upload">
                   {fileName}
                 </Form.File.Label>
                 <Form.Control.Feedback type="invalid">
-                  {errors.bookCover?.message}
+                  {methods.formState.errors.bookCover?.message}
                 </Form.Control.Feedback>
               </Form.File>
             </Form.Group>
@@ -192,6 +143,6 @@ export function AddBook() {
           </Col>
         </Row>
       </Form>
-    </>
+    </FormProvider>
   );
 }

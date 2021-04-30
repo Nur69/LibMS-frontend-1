@@ -11,8 +11,8 @@ export const ValidationSchema = yup.object().shape({
     .matches(/^\d+$/, 'ISBN should contain digits only')
     .required('ISBN is required'),
   title: yup.string().required('Title is required'),
-  originTitle: yup.string().required('Origin title is required'),
-  subtitle: yup.string().required('Substitle is required'),
+  originTitle: yup.string().required('Original title is required'),
+  subtitle: yup.string().required('Subtitle is required'),
   author: yup.string().required('Author is required'),
   publisher: yup.string().required('Publisher is required'),
   publishedDate: yup
