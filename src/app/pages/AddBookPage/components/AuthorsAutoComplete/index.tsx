@@ -53,7 +53,7 @@ export function AuthorsAutoComplete(props: Props) {
               <Typeahead
                 {...field}
                 id="author"
-                isValid={!!methods.formState.errors.author}
+                isInvalid={!!methods.formState.errors.author}
                 labelKey={option => `${option.firstName} ${option.lastName}`}
                 options={tempAuthors}
                 onChange={authorSelected} // selected is an array
@@ -61,8 +61,13 @@ export function AuthorsAutoComplete(props: Props) {
             )}
           />
           <Form.Control.Feedback type="invalid">
+            {/*for some reason this is not rendering despite being in the DOM*/}
             {methods.formState.errors['author']?.message}
           </Form.Control.Feedback>
+          {/* workaround */}
+          <small className="text-danger">
+            {methods.formState.errors['author']?.message}
+          </small>
         </Form.Group>
       )}
     </ConnectForm>
