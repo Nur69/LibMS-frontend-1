@@ -6,6 +6,7 @@ import { ValidationSchema } from 'app/services/validation/schemes/AddBook';
 import { AddBookForm } from './AddBookForm';
 import { CustomInputField } from '../components/CustomInputField';
 import { CustomImageInput } from 'app/components/CustomImageInput';
+import { AuthorsAutoComplete } from '../components/AuthorsAutoComplete';
 
 export function AddBook() {
   const onSubmit = (data: AddBookForm): void =>
@@ -35,6 +36,8 @@ export function AddBook() {
               htmlFor="title"
               ariaLabel="title"
             />
+
+            <AuthorsAutoComplete />
 
             <CustomInputField
               title="Subtitle"
