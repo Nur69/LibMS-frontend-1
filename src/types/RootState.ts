@@ -1,5 +1,6 @@
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
+import { AddBookState } from 'app/pages/AddBookPage/AddBookForm/slice/types';
 import { AddBookAuthorsState } from 'app/pages/AddBookPage/components/AuthorsAutoComplete/slice/types';
 import { LoginUserState } from 'app/pages/LoginPage/LoginForm/slice/types';
 import { RegisterUserState } from 'app/pages/RegisterPage/RegisterForm/slice/types';
@@ -13,4 +14,5 @@ export interface RootState {
   loginUser: LoginUserState;
   registerUser: RegisterUserState;
   addBookAuthors: AddBookAuthorsState;
+  addBook: AddBookState;
 }

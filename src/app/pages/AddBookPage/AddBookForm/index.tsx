@@ -6,11 +6,32 @@ import { ValidationSchema } from 'app/services/validation/schemes/AddBook';
 import { AddBookForm } from './AddBookForm';
 import { CustomInputField } from '../components/CustomInputField';
 import { CustomImageInput } from 'app/components/CustomImageInput';
-import { AuthorsAutoComplete } from '../components/AuthorsAutoComplete';
+import { useAddBookSlice } from './slice';
+import { useDispatch } from 'react-redux';
 
 export function AddBook() {
-  const onSubmit = (data: AddBookForm): void =>
-    console.info(JSON.stringify(data));
+  const { actions } = useAddBookSlice();
+  const dispatch = useDispatch();
+  const onSubmit = (data: AddBookForm): void => {
+    let publishedDate = new Date(data.publishedDate).toISOString();
+    //Hardcoded
+    let bookCover = '';
+    let pageCount = 2000;
+    console.log({
+      ...data,
+      bookCover,
+      publishedDate,
+      pageCount,
+    });
+    dispatch(
+      actions.requestAddBook({
+        ...data,
+        bookCover,
+        publishedDate,
+        pageCount,
+      }),
+    );
+  };
 
   const resolver = useYupValidationResolver(ValidationSchema);
   const methods = useForm<any>({
@@ -22,11 +43,11 @@ export function AddBook() {
         <Row>
           <Col xs={6} md={6}>
             <CustomInputField
-              title="ISBN"
-              id="isbn"
+              title="ISBN10"
+              id="isbn10"
               type="text"
-              htmlFor="isbn"
-              ariaLabel="isbn"
+              htmlFor="isbn10"
+              ariaLabel="isbn10"
             />
 
             <CustomInputField
@@ -37,7 +58,7 @@ export function AddBook() {
               ariaLabel="title"
             />
 
-            <AuthorsAutoComplete />
+            {/*<AuthorsAutoComplete />*/}
 
             <CustomInputField
               title="Subtitle"
