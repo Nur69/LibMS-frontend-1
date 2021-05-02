@@ -26,7 +26,12 @@ export function* addBookSaga(action) {
       body: formData,
     };
     yield call(request, BOOK_ENDPOINTS.addBook, options);
-    yield put(addBookActions.addBookSuccess(book));
+    yield put(
+      addBookActions.addBookSuccess({
+        ...book,
+        message: 'Book Added Successfully',
+      }),
+    );
   } catch (error) {
     if (error.response?.status !== 200) {
       yield put(

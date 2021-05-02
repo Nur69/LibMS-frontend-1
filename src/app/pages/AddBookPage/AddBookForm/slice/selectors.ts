@@ -15,6 +15,11 @@ export const selectErrorMessage = createSelector(
   addBookFormState => addBookFormState.errorMessage,
 );
 
+export const selectSuccessMessage = createSelector(
+  [selectSlice],
+  addBookFormState => addBookFormState.successMessage,
+);
+
 export const selectIsFetching = createSelector(
   [selectSlice],
   addBookFormState => addBookFormState.isFetching,

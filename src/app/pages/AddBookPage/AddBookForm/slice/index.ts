@@ -19,6 +19,7 @@ export const initialState: AddBookState = {
   isSuccess: false,
   isError: false,
   errorMessage: '',
+  successMessage: '',
 };
 
 const slice = createSlice({
@@ -42,6 +43,7 @@ const slice = createSlice({
       state.isSuccess = true;
       state.isError = false;
       state.isFetching = false;
+      state.successMessage = action.payload.message;
     },
     addBookFailed(state, action: PayloadAction<{ message: string }>) {
       state.isSuccess = false;

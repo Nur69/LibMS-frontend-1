@@ -1,13 +1,20 @@
 import { useForm, FormProvider } from 'react-hook-form';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Form, Row } from 'react-bootstrap';
 import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
 import { ValidationSchema } from 'app/services/validation/schemes/AddBook';
 import { AddBookForm } from './AddBookForm';
 import { CustomInputField } from '../components/CustomInputField';
 import { CustomImageInput } from 'app/components/CustomImageInput';
 import { useAddBookSlice } from './slice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthorsAutoComplete } from '../components/AuthorsAutoComplete';
+import {
+  selectErrorMessage,
+  selectIsError,
+  selectIsSuccess,
+  selectSuccessMessage,
+} from './slice/selectors';
+import React from 'react';
 
 export function AddBook() {
   const { actions } = useAddBookSlice();
@@ -35,8 +42,27 @@ export function AddBook() {
     );
   };
 
+  const successMessage = useSelector(selectSuccessMessage);
+  const errorMessage = useSelector(selectErrorMessage);
+  const isError = useSelector(selectIsError);
+  const isSuccess = useSelector(selectIsSuccess);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [showAlert, setShowAlert] = React.useState(true);
+
+  const errorAlert = (
+    <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+      <p>{errorMessage}</p>
+    </Alert>
+  );
+
+  const successAlert = (
+    <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+      <p>{successMessage}</p>
+    </Alert>
+  );
   return (
     <FormProvider {...methods}>
+      {!!isError && errorAlert}
       <Form onSubmit={methods.handleSubmit(onSubmit)}>
         <Row>
           <Col xs={6} md={6}>
@@ -105,6 +131,7 @@ export function AddBook() {
               id="image"
               preview={{ id: 'image-preview', width: '100%' }}
             ></CustomImageInput>
+            {!!isSuccess && successAlert}
             <Button
               className="float-right"
               type="submit"
