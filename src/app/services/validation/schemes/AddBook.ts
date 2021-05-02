@@ -1,28 +1,31 @@
 import * as yup from 'yup';
-
-const FILE_SIZE = 1000000; // 1MB
+const FILE_SIZE = 1048576; // 1MB
 export const SUPPORTED_IMAGE_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
 
 export const ValidationSchema = yup.object().shape({
   isbn: yup
     .string()
-    .min(10, 'ISBN should be at least of 10 digits')
-    .max(13, 'ISBN should be at most of 13 digits')
-    .matches(/^\d+$/, 'ISBN should contain digits only')
-    .required('ISBN is required'),
+    .required('ISBN is required')
+    .test('isbnLen', 'Invalid ISBN', isbn => {
+      if (isbn) {
+        return isbn.length === 10 || isbn.length === 13;
+      }
+      return false;
+    }),
   title: yup.string().required('Title is required'),
-  originTitle: yup.string().required('Original title is required'),
-  subtitle: yup.string().required('Subtitle is required'),
-  author: yup.string().required('Author is required'),
+  originalTitle: yup.string(),
+  subtitle: yup.string(),
+  pageCount: yup
+    .number()
+    .required('Number of pages required')
+    .min(1, 'Number of pages must be greater than or equal to 1')
+    .typeError('Page count must be a number'),
   publisher: yup.string().required('Publisher is required'),
-  publishedDate: yup
-    .string()
-    .matches(
-      /^(0[1-9]|[12][0-9]|3[01])[- /.]/,
-      'Date format should be dd-mm-yyyy',
-    )
-    .required('Published Date is required'),
-  bookCover: yup
+  publicationDate: yup
+    .date()
+    .required('Publication Date is required')
+    .typeError('Date format should be dd/mm/yyyy'),
+  image: yup
     .mixed()
     .required('A file is required')
     .test(

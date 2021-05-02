@@ -21,7 +21,6 @@ export function LoginForm() {
   const dispatch = useDispatch();
 
   const onSubmit = (data: LoginForm) => {
-    console.log(JSON.stringify(data));
     dispatch(actions.requestLogin({ ...data }));
   };
   const { register, handleSubmit } = useForm();

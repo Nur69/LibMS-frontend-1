@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
@@ -8,27 +7,25 @@ import { CustomInputField } from '../components/CustomInputField';
 import { CustomImageInput } from 'app/components/CustomImageInput';
 import { useAddBookSlice } from './slice';
 import { useDispatch } from 'react-redux';
+import { Author } from '../components/AuthorsAutoComplete/slice/types';
 
 export function AddBook() {
   const { actions } = useAddBookSlice();
   const dispatch = useDispatch();
+
   const onSubmit = (data: AddBookForm): void => {
-    let publishedDate = new Date(data.publishedDate).toISOString();
-    //Hardcoded
-    let bookCover = '';
-    let pageCount = 2000;
-    console.log({
-      ...data,
-      bookCover,
-      publishedDate,
-      pageCount,
-    });
+    let publicationDate = new Date(data.publicationDate).toISOString();
+    let image = data.image[0];
+    let authors: Author[] = [
+      { firstName: 'John', middleName: 'Hubert', lastName: 'Doe' },
+      { firstName: 'William', lastName: 'Press' },
+    ];
     dispatch(
       actions.requestAddBook({
         ...data,
-        bookCover,
-        publishedDate,
-        pageCount,
+        image,
+        authors,
+        publicationDate,
       }),
     );
   };
@@ -43,11 +40,11 @@ export function AddBook() {
         <Row>
           <Col xs={6} md={6}>
             <CustomInputField
-              title="ISBN10"
-              id="isbn10"
+              title="ISBN"
+              id="isbn"
               type="text"
-              htmlFor="isbn10"
-              ariaLabel="isbn10"
+              htmlFor="isbn"
+              ariaLabel="isbn"
             />
 
             <CustomInputField
@@ -70,10 +67,18 @@ export function AddBook() {
 
             <CustomInputField
               title="Original Title"
-              id="originTitle"
+              id="originalTitle"
               type="text"
-              htmlFor="originTitle"
-              ariaLabel="originTitle"
+              htmlFor="originalTitle"
+              ariaLabel="originalTitle"
+            />
+
+            <CustomInputField
+              title="Number of Pages"
+              id="pageCount"
+              type="text"
+              htmlFor="pageCount"
+              ariaLabel="pageCount"
             />
 
             <CustomInputField
@@ -85,18 +90,18 @@ export function AddBook() {
             />
 
             <CustomInputField
-              title="Published Date"
-              id="publishedDate"
+              title="Publication Date"
+              id="publicationDate"
               type="text"
-              htmlFor="publishedDate"
-              ariaLabel="publishedDate"
+              htmlFor="publicationDate"
+              ariaLabel="publicationDate"
             />
           </Col>
           <Col xs={6} md={4}>
             <CustomImageInput
               label="Book Cover"
               title="Select a file"
-              id="bookCover"
+              id="image"
               preview={{ id: 'image-preview', width: '100%' }}
             ></CustomImageInput>
             <Button

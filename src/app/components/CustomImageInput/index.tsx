@@ -34,17 +34,22 @@ export function CustomImageInput(props: IProps) {
     event.preventDefault();
     const target = event.target as HTMLInputElement;
     let file: File = (target.files as FileList)[0];
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      const result = reader.result as string;
-      setState({
-        file: file,
-        fileName: file.name,
-        imagePreview: SUPPORTED_IMAGE_FORMATS.includes(file.type),
-        imagePreviewUrl: result,
-      });
-    };
-    reader.readAsDataURL(file);
+    if (file) {
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setState({
+          file: file,
+          fileName: file.name,
+          imagePreview: SUPPORTED_IMAGE_FORMATS.includes(file.type),
+          imagePreviewUrl: result,
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Reset store if user cancels action
+      setState(initialState);
+    }
   };
 
   const showPreloadImage = () => {

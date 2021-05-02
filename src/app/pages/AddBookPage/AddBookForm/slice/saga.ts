@@ -1,43 +1,36 @@
 import { BOOK_ENDPOINTS } from 'app/configs/endpoints';
 import { call, put, takeLatest } from 'redux-saga/effects';
+import objectToFormData from 'utils/form-data';
 import { request } from 'utils/request';
-import { useAddBookActions as actions, useAddBookActions } from '.';
+import { addBookActions as actions, addBookActions } from '.';
+import { Book } from './types';
 
 export function* addBookSaga(action) {
   try {
-    console.log('hello');
-    yield call(request, BOOK_ENDPOINTS.addBook, {
+    const book: Book = {
+      isbn: action.payload.isbn,
+      title: action.payload.title,
+      authors: action.payload.authors,
+      subtitle: action.payload.subtitle,
+      originalTitle: action.payload.originalTitle,
+      publisher: action.payload.publisher,
+      publishedDate: action.payload.publicationDate,
+      pageCount: action.payload.pageCount,
+      image: action.payload.image,
+    };
+    console.table(book);
+    const formData = objectToFormData(book);
+    console.table(Object.fromEntries(formData));
+    const options = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        isbn10: action.payload.isbn10,
-        title: action.payload.title,
-        authors: action.payload.authors,
-        subtitle: action.payload.subtitle,
-        originalTitle: action.payload.originalTitle,
-        publisher: action.payload.publisher,
-        publishedDate: action.payload.publishedDate,
-        pageCount: action.payload.pageCount,
-      }),
-    });
-    yield put(
-      useAddBookActions.addBookSuccess({
-        isbn10: action.payload.isbn,
-        title: action.payload.title,
-        authors: action.payload.authors,
-        subtitle: action.payload.subtitle,
-        originalTitle: action.payload.originalTitle,
-        publisher: action.payload.publisher,
-        publishedDate: action.payload.publishedDate,
-        pageCount: action.payload.pageCount,
-      }),
-    );
+      body: formData,
+    };
+    yield call(request, BOOK_ENDPOINTS.addBook, options);
+    yield put(addBookActions.addBookSuccess(book));
   } catch (error) {
-    if (error.response?.status === 409) {
+    if (error.response?.status !== 200) {
       yield put(
-        useAddBookActions.addBookFail({
+        addBookActions.addBookFailed({
           message: 'Adding Book Failed: Please retry',
         }),
       );
@@ -45,6 +38,6 @@ export function* addBookSaga(action) {
   }
 }
 
-export function* rootAddBookSaga() {
+export function* watchRequestAddBook() {
   yield takeLatest(actions.requestAddBook.type, addBookSaga);
 }

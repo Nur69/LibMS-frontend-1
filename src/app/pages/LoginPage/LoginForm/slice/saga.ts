@@ -4,8 +4,6 @@ import { UserLoggedIn } from 'types/UserLoggedIn';
 import { request } from 'utils/request';
 import { userActions as actions, userActions } from '.';
 
-// function* doSomething() {}
-
 export function* loginUserSaga(action) {
   try {
     // Saga's way of dispatching actions
