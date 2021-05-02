@@ -7,33 +7,34 @@ import { CustomInputField } from '../components/CustomInputField';
 import { CustomImageInput } from 'app/components/CustomImageInput';
 import { useAddBookSlice } from './slice';
 import { useDispatch } from 'react-redux';
-import { Author } from '../components/AuthorsAutoComplete/slice/types';
+import { AuthorsAutoComplete } from '../components/AuthorsAutoComplete';
 
 export function AddBook() {
   const { actions } = useAddBookSlice();
   const dispatch = useDispatch();
 
+  const resolver = useYupValidationResolver(ValidationSchema);
+  const methods = useForm<any>({
+    resolver,
+  });
+
   const onSubmit = (data: AddBookForm): void => {
     let publicationDate = new Date(data.publicationDate).toISOString();
     let image = data.image[0];
-    let authors: Author[] = [
-      { firstName: 'John', middleName: 'Hubert', lastName: 'Doe' },
-      { firstName: 'William', lastName: 'Press' },
-    ];
+    console.log('data: ', {
+      ...data,
+      image,
+      publicationDate,
+    });
     dispatch(
       actions.requestAddBook({
         ...data,
         image,
-        authors,
         publicationDate,
       }),
     );
   };
 
-  const resolver = useYupValidationResolver(ValidationSchema);
-  const methods = useForm<any>({
-    resolver,
-  });
   return (
     <FormProvider {...methods}>
       <Form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -55,7 +56,7 @@ export function AddBook() {
               ariaLabel="title"
             />
 
-            {/*<AuthorsAutoComplete />*/}
+            <AuthorsAutoComplete />
 
             <CustomInputField
               title="Subtitle"

@@ -24,3 +24,8 @@ export const selectIsSuccess = createSelector(
   [selectSlice],
   addBookFormState => addBookFormState.isSuccess,
 );
+
+export const selectAuthors = createSelector(
+  [selectSlice],
+  addBookFormState => addBookFormState.authors,
+);

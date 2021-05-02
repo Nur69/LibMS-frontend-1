@@ -49,6 +49,20 @@ const slice = createSlice({
       state.isFetching = false;
       state.errorMessage = action.payload.message;
     },
+    addAuthor(state, action: PayloadAction<{ list: any[] }>) {
+      return {
+        ...state,
+        authors: [...state.authors, ...action.payload.list],
+      };
+    },
+    removeAuthor(state, action: PayloadAction<{ id: string | number }>) {
+      return {
+        ...state,
+        authors: state.authors.filter(
+          author => author.id !== action.payload.id,
+        ),
+      };
+    },
   },
 });
 

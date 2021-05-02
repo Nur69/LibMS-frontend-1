@@ -25,6 +25,18 @@ export const ValidationSchema = yup.object().shape({
     .date()
     .required('Publication Date is required')
     .typeError('Date format should be dd/mm/yyyy'),
+  authors: yup
+    .array()
+    .of(
+      yup.object().shape({
+        firstName: yup.string(),
+        lastName: yup.string(),
+      }),
+    )
+    .test({
+      message: 'At least one author is required',
+      test: arr => (arr?.length ? true : false),
+    }),
   image: yup
     .mixed()
     .required('A file is required')
