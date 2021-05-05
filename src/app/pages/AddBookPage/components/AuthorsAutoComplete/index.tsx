@@ -9,9 +9,7 @@ import { AuthorBadge } from '../AuthorBadge';
 import { Author } from './slice/types';
 import { useFormContext, Controller, useFieldArray } from 'react-hook-form';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectAuthors } from '../../AddBookForm/slice/selectors';
-import { useAddBookSlice } from '../../AddBookForm/slice';
+import { ChangeEvent } from 'react';
 
 interface Props {}
 
@@ -21,6 +19,8 @@ const tempAuthors: Author[] = [
   { id: '13-x', firstName: 'William', lastName: 'Press' },
 ];
 
+let NEW_AUTHOR_ID = 0;
+
 export const ConnectForm = ({ children }) => {
   const methods = useFormContext();
 
@@ -28,16 +28,6 @@ export const ConnectForm = ({ children }) => {
 };
 
 export function AuthorsAutoComplete(props: Props) {
-  const authors = useSelector(selectAuthors);
-  const { actions } = useAddBookSlice();
-  const dispatch = useDispatch();
-
-  // this a field array
-  // why am I doing this? bascially this is needed so that yup can validate.
-  // go to the validation scheme and you'll find the authors validation rule.
-  // when adding an author it will be added in two places: the AddBookSlice and the authors field
-  // I'm storing the authors in the slice so that they are rendered and deleted from the AuthorsBadge component
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { fields, append, remove } = useFieldArray({
     name: 'authors',
@@ -48,11 +38,51 @@ export function AuthorsAutoComplete(props: Props) {
   const ref = React.useRef<any>(null);
 
   const authorSelected = (list: any[]) => {
-    dispatch(actions.addAuthor({ list }));
-    // this will populate that field array (i.e. authors)
-    append({ firstName: list[0].firstName, lastName: list[0].lastName });
+    // this will populate that field array (i.e. 'authors' field)
+    if (list[0].middleName) {
+      append({
+        id: list[0].id,
+        firstName: list[0].firstName,
+        middleName: list[0].middleName,
+        lastName: list[0].lastName,
+      });
+    } else {
+      append({
+        id: list[0].id,
+        firstName: list[0].firstName,
+        lastName: list[0].lastName,
+      });
+    }
     // clear field once the author is added
     ref.current.clear();
+  };
+
+  // method for adding a new author not in the list
+  const addNewAuthor = (e: Event) => {
+    const t = e as KeyboardEvent;
+    if (t.key === 'Enter') {
+      const v = ((t as unknown) as ChangeEvent<HTMLInputElement>).target.value;
+      NEW_AUTHOR_ID += 1;
+      const author = v.split(' ');
+      if (author.length === 3) {
+        append({
+          id: NEW_AUTHOR_ID,
+          firstName: author[0],
+          middleName: author[1],
+          lastName: author[2],
+          new: true, // <-- tag for the backend
+        });
+      }
+      if (author.length === 2) {
+        append({
+          id: NEW_AUTHOR_ID,
+          firstName: author[0],
+          lastName: author[1],
+          new: true,
+        });
+      }
+      ref.current.clear();
+    }
   };
 
   return (
@@ -61,13 +91,13 @@ export function AuthorsAutoComplete(props: Props) {
         <Form.Group>
           <Form.Label htmlFor="author">Author(s)</Form.Label>
           <div className="mb-2">
-            {authors.map((author, i) => (
+            {methods.getValues('authors')?.map((author, i) => (
               <AuthorBadge
-                key={author.id}
+                key={i}
                 firstName={author.firstName}
+                middleName={author.middleName}
                 lastName={author.lastName}
                 fieldId={i}
-                realId={author.id}
                 remove={remove}
               />
             ))}
@@ -82,9 +112,15 @@ export function AuthorsAutoComplete(props: Props) {
                 ref={ref}
                 id="author"
                 isInvalid={!!methods.formState.errors.authors}
-                labelKey={option => `${option.firstName} ${option.lastName}`}
+                labelKey={option =>
+                  `${option.firstName} ${
+                    option.middleName ? option.middleName : ''
+                  } ${option.lastName}`
+                }
                 options={tempAuthors}
                 onChange={authorSelected} // selected is an array
+                onKeyDown={addNewAuthor}
+                minLength={2}
               />
             )}
           />

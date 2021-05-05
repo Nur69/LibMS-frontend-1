@@ -1,7 +1,7 @@
 /* --- STATE --- */
 
 export interface Author {
-  id: string;
+  id: string | number;
   firstName: string;
   middleName?: string;
   lastName: string;
