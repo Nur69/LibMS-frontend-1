@@ -25,14 +25,18 @@ export function AddBook() {
     resolver,
   });
 
+  const renameFile = (file: File) => {
+    const blob = file.slice(0, file.size, file.type);
+    const newName = `${file.name.split('.')[0]}-${file.lastModified}.${
+      file.name.split('.')[1]
+    }`;
+    return new File([blob], newName, { type: file.type });
+  };
+
   const onSubmit = (data: AddBookForm): void => {
     let publicationDate = new Date(data.publicationDate).toISOString();
-    let image = data.image[0];
-    console.log('data: ', {
-      ...data,
-      image,
-      publicationDate,
-    });
+    let image = renameFile(data.image[0]);
+
     dispatch(
       actions.requestAddBook({
         ...data,
