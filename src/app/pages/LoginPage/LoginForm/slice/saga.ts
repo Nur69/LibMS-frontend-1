@@ -4,7 +4,7 @@ import {
   getRefreshToken,
   setAccessToken,
   setRefreshToken,
-} from 'app/services/tokens/tokens.service';
+} from 'app/services/auth/tokens.service';
 import {
   call,
   cancel,
@@ -20,14 +20,14 @@ import { request } from 'utils/request';
 import { userActions } from '.';
 import { useLogoutActions } from '../../../AuthPage/slice/index';
 
-function* refreshToken(refresh) {
+function* refreshTokenFlow(refreshToken) {
   try {
     // Try to refresh access token then store the new access token
     const options = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + refresh,
+        Authorization: 'Bearer ' + refreshToken,
       },
     };
     const accessToken: string = yield call(
@@ -47,15 +47,14 @@ function* refreshToken(refresh) {
   }
 }
 
-function* authorizeLoop(token) {
+function* authorizeLoop(refreshToken) {
   while (true) {
-    const { accessToken } = yield call(refreshToken, token);
+    const { accessToken } = yield call(refreshTokenFlow, refreshToken);
     if (accessToken == null) return;
     const decodedAccessToken: JwtPayload = jwt_decode(accessToken);
     if (!decodedAccessToken.exp || !decodedAccessToken.iat) return;
     // Compute remaining time
-    //yield delay((decodedAccessToken.exp - decodedAccessToken.iat) * 1000);
-    yield delay(2000);
+    yield delay((decodedAccessToken.exp - decodedAccessToken.iat) * 1000);
   }
 }
 

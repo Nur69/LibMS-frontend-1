@@ -20,6 +20,8 @@ import { DashboardPage } from './pages/DashboardPage/Loadable';
 
 import { useTranslation } from 'react-i18next';
 import { UserGreeting } from './pages/UserGreeting/Loadable';
+import RouteUnauthenticated from './guards/UnauthenticatedRoute';
+import RouteAuthenticated from './guards/AuthenticatedRoute';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -44,13 +46,13 @@ export function App() {
       </Helmet>
 
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/auth" component={AuthPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/user" component={UserGreeting} />
-        <Route exact path="/add-book" component={AddBookPage} />
-        <Route exact path="/dashboard" component={DashboardPage} />
+        <RouteUnauthenticated exact path="/" component={HomePage} />
+        <RouteUnauthenticated exact path="/auth" component={AuthPage} />
+        <RouteUnauthenticated exact path="/login" component={LoginPage} />
+        <RouteUnauthenticated exact path="/register" component={RegisterPage} />
+        <RouteAuthenticated exact path="/user" component={UserGreeting} />
+        <RouteAuthenticated exact path="/add-book" component={AddBookPage} />
+        <RouteAuthenticated exact path="/dashboard" component={DashboardPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>

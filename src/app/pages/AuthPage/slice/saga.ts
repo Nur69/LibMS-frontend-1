@@ -1,4 +1,4 @@
-import { clearTokens } from 'app/services/tokens/tokens.service';
+import { clearTokens } from 'app/services/auth/tokens.service';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { useLogoutActions as actions, useLogoutActions } from '.';
 
