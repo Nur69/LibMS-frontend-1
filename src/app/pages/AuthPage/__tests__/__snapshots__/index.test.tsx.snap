@@ -21,7 +21,7 @@ exports[`<AuthPage  /> should match snapshot 1`] = `
   class="c0 d-flex flex-column min-vh-100"
 >
   <div
-    class=""
+    class="Header__Div-sc-72bdxd-0"
   >
     <nav
       class="c1 navbar navbar-expand navbar-light"
