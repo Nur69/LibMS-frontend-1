@@ -28,16 +28,16 @@ export const Sidebar = memo(() => {
                 <img src={imgSource} alt="" width={200} height={101} />
               </Row>
               <Row className="flex-column mt-5 mb-5">
-                {navItemsTop.map(navigate => (
-                  <CustomNavLink href={navigate.link}>
+                {navItemsTop.map((navigate, i) => (
+                  <CustomNavLink href={navigate.link} key={i}>
                     <navigate.icon className="mr-2" />
                     {navigate.name}
                   </CustomNavLink>
                 ))}
               </Row>
               <Row className="flex-column mt-5">
-                {navItemsBottom.map(navigate => (
-                  <CustomNavLink href={navigate.link}>
+                {navItemsBottom.map((navigate, i) => (
+                  <CustomNavLink href={navigate.link} key={i}>
                     <navigate.icon className="mr-2" />
                     {navigate.name}
                   </CustomNavLink>

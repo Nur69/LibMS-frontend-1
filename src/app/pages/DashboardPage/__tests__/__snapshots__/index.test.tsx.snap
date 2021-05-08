@@ -30,7 +30,7 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
             class="flex-column mt-5 mb-5 row"
           >
             <a
-              class="Sidebar__CustomNavLink-sc-10trlwj-0 nav-link"
+              class="nav-link"
               data-rb-event-key="/"
               href="/"
             >
@@ -51,7 +51,7 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
               Dashboard
             </a>
             <a
-              class="Sidebar__CustomNavLink-sc-10trlwj-0 nav-link"
+              class="nav-link"
               data-rb-event-key="/"
               href="/"
             >
@@ -72,7 +72,7 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
               Library
             </a>
             <a
-              class="Sidebar__CustomNavLink-sc-10trlwj-0 nav-link"
+              class="nav-link"
               data-rb-event-key="/"
               href="/"
             >
@@ -93,7 +93,7 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
               Reservations
             </a>
             <a
-              class="Sidebar__CustomNavLink-sc-10trlwj-0 nav-link"
+              class="nav-link"
               data-rb-event-key="/"
               href="/"
             >
@@ -114,7 +114,7 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
               Templates
             </a>
             <a
-              class="Sidebar__CustomNavLink-sc-10trlwj-0 nav-link"
+              class="nav-link"
               data-rb-event-key="/"
               href="/"
             >
@@ -139,7 +139,7 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
             class="flex-column mt-5 row"
           >
             <a
-              class="Sidebar__CustomNavLink-sc-10trlwj-0 nav-link"
+              class="nav-link"
               data-rb-event-key="/"
               href="/"
             >
@@ -160,7 +160,7 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
               Setting
             </a>
             <a
-              class="Sidebar__CustomNavLink-sc-10trlwj-0 nav-link"
+              class="nav-link"
               data-rb-event-key="/"
               href="/"
             >

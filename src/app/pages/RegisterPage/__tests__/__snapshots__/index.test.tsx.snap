@@ -29,7 +29,7 @@ exports[`<RegisterPage  /> should match snapshot 1`] = `
   class="c0 d-flex flex-column min-vh-100"
 >
   <div
-    class="Header__Div-sc-72bdxd-0"
+    class=""
   >
     <nav
       class="c1 navbar navbar-expand navbar-light"
