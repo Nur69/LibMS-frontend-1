@@ -10,7 +10,7 @@ exports[`<AddBookPage  /> should match snapshot 1`] = `
 }
 
 <div
-  class=""
+  class="Header__Div-sc-72bdxd-0"
 >
   <nav
     class="c0 navbar navbar-expand navbar-light"
