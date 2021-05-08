@@ -3,6 +3,7 @@ const SUFFIX = 'api';
 
 export const AUTH_ENDPOINTS = {
   login: `${BASE_URL}/${SUFFIX}/user/auth`,
+  refresh: `${BASE_URL}/${SUFFIX}/user/refresh`,
   register: `${BASE_URL}/${SUFFIX}/user`,
   profile: `${BASE_URL}/profile`,
 };

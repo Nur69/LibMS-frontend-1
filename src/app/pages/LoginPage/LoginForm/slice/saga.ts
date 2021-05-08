@@ -1,44 +1,129 @@
 import { AUTH_ENDPOINTS } from 'app/configs/endpoints';
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { UserLoggedIn } from 'types/UserLoggedIn';
+import {
+  clearTokens,
+  getRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from 'app/services/tokens/tokens.service';
+import {
+  call,
+  cancel,
+  cancelled,
+  delay,
+  fork,
+  put,
+  take,
+} from 'redux-saga/effects';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
+import { Tokens } from 'types/Tokens';
 import { request } from 'utils/request';
-import { userActions as actions, userActions } from '.';
+import { userActions } from '.';
+import { useLogoutActions } from '../../../AuthPage/slice/index';
 
-export function* loginUserSaga(action) {
+function* refreshToken(refresh) {
   try {
-    // Saga's way of dispatching actions
-    const requestLogin: UserLoggedIn = yield call(
-      request,
-      AUTH_ENDPOINTS.login,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: action.payload.email,
-          password: action.payload.password,
-        }),
+    // Try to refresh access token then store the new access token
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + refresh,
       },
+    };
+    const accessToken: string = yield call(
+      request,
+      AUTH_ENDPOINTS.refresh,
+      options,
     );
+
+    yield call(setAccessToken, accessToken);
+
+    yield put(userActions.refreshSuccess());
+    return accessToken;
+  } catch (e) {
+    yield call(clearTokens);
+    yield put(userActions.refreshFailed(e));
+    return null;
+  }
+}
+
+function* authorizeLoop(token) {
+  while (true) {
+    const { accessToken } = yield call(refreshToken, token);
+    if (accessToken == null) return;
+    const decodedAccessToken: JwtPayload = jwt_decode(accessToken);
+    if (!decodedAccessToken.exp || !decodedAccessToken.iat) return;
+    // Compute remaining time
+    //yield delay((decodedAccessToken.exp - decodedAccessToken.iat) * 1000);
+    yield delay(2000);
+  }
+}
+
+function* authentication() {
+  const storedToken = yield call(getRefreshToken);
+
+  // If no tokens found, wait until login successful
+  if (!storedToken) yield take(userActions.loginSuccess.type);
+  yield fork(authorizeLoop, storedToken);
+}
+
+function* loginUserSaga(email, password) {
+  try {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    };
+
+    const tokens: Tokens = yield call(request, AUTH_ENDPOINTS.login, options);
     yield put(
       userActions.loginSuccess({
-        refreshToken: requestLogin.refreshToken,
-        accesToken: requestLogin.accessToken,
-        email: action.payload.email,
+        email: email,
+        tokens: tokens,
       }),
     );
+
+    yield call(setAccessToken, tokens.accessToken);
+    yield call(setRefreshToken, tokens.refreshToken);
+
+    return tokens;
   } catch (error) {
-    if (error.response?.status === 401) {
-      yield put(
-        userActions.loginFailed({
-          message: 'Login Failed: Please check your credentials',
-        }),
-      );
+    yield put(
+      userActions.loginFailed({
+        message: 'Login Failed: Please check your credentials',
+      }),
+    );
+  } finally {
+    if (yield cancelled()) {
+      yield call(clearTokens);
     }
   }
 }
 
-export function* rootLoginUserSaga() {
-  yield takeLatest(actions.requestLogin.type, loginUserSaga);
+export function* loginFlow() {
+  while (true) {
+    const loginAction = yield take(userActions.requestLogin.type);
+    // fork return a Task object
+    const loginTask = yield call(
+      loginUserSaga,
+      loginAction.payload.email,
+      loginAction.payload.password,
+    );
+    const refreshTask = yield fork(authentication);
+    // Placeholder for eventual logout functionality
+    const action = yield take([
+      useLogoutActions.logoutSuccess.type,
+      userActions.loginFailed.type,
+    ]);
+    if (action.type === useLogoutActions.logoutSuccess.type) {
+      yield cancel(loginTask);
+      yield cancel(refreshTask);
+    }
+    yield call(clearTokens);
+  }
 }

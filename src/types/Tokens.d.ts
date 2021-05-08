@@ -1,4 +1,4 @@
-export interface UserLoggedIn {
+export interface Tokens {
   accessToken: string;
   refreshToken: string;
 }

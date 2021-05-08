@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router';
 import { useUserSlice } from './slice';
 import {
   selectIsFetching,
@@ -30,7 +29,6 @@ export function LoginForm() {
   const isFetching = useSelector(selectIsFetching);
   const isError = useSelector(selectIsError);
   const errorMessage = useSelector(selectErrorMessage);
-  const isSuccess = useSelector(selectIsSuccess);
 
   // Local state for the alert
 
@@ -74,7 +72,7 @@ export function LoginForm() {
       <Button type="submit" className="w-75">
         Submit
       </Button>
-      {!!isSuccess && <Redirect to="/user" />}
+      {/* {!!isSuccess && <Redirect to="/user" />} */}
     </Form>
   );
 }

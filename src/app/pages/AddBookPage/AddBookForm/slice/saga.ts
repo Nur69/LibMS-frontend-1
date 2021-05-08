@@ -18,9 +18,7 @@ export function* addBookSaga(action) {
       pageCount: action.payload.pageCount,
       image: action.payload.image,
     };
-    console.table(book);
     const formData = objectToFormData(book);
-    console.table(Object.fromEntries(formData));
     const options = {
       method: 'POST',
       body: formData,
