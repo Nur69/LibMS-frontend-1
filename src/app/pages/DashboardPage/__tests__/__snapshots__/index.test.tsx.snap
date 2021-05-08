@@ -2,13 +2,13 @@
 
 exports[`<LoginPage  /> should match snapshot 1`] = `
 <div
-  class="min-vh-100"
+  class="d-flex min-vh-100 justify-content-center col-2"
 >
   <div
-    class="row"
+    class="min-vh-100"
   >
     <div
-      class="d-flex min-vh-100 justify-content-center col-2"
+      class="row"
     >
       <nav
         class="navbar navbar-expand navbar-light"
@@ -184,9 +184,6 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
         </div>
       </nav>
     </div>
-    <div
-      class="bg-light col-10"
-    />
   </div>
 </div>
 `;
