@@ -7,24 +7,31 @@
  */
 
 import * as React from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
-
-import { HomePage } from './pages/HomePage/Loadable';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
+import RouteAuthenticated from './guards/AuthenticatedRoute';
+import RouteUnauthenticated from './guards/UnauthenticatedRoute';
+import { AddBookPage } from './pages/AddBookPage/Loadable';
 import { AuthPage } from './pages/AuthPage/Loadable';
+import { DashboardPage } from './pages/DashboardPage/Loadable';
+import { HomePage } from './pages/HomePage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
-import { AddBookPage } from './pages/AddBookPage/Loadable';
-import { DashboardPage } from './pages/DashboardPage/Loadable';
-
-import { useTranslation } from 'react-i18next';
 import { UserGreeting } from './pages/UserGreeting/Loadable';
-import RouteUnauthenticated from './guards/UnauthenticatedRoute';
-import RouteAuthenticated from './guards/AuthenticatedRoute';
+import { userProfileActions } from './pages/UserGreeting/slice';
 
 export function App() {
   const { i18n } = useTranslation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(userProfileActions.requestUserProfile);
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Helmet

@@ -5,7 +5,6 @@ import { loginFlow } from './saga';
 import { LoginUserState } from './types';
 
 export const initialState: LoginUserState = {
-  email: '',
   isFetching: false,
   isSuccess: false,
   isError: false,
@@ -25,8 +24,6 @@ const slice = createSlice({
       state.isSuccess = true;
       state.isError = false;
       state.isFetching = false;
-
-      state.email = action.payload.email;
     },
     loginFailed(state, action: PayloadAction<{ message: string }>) {
       state.isSuccess = false;

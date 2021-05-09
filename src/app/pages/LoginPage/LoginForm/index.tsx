@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { useUserSlice } from './slice';
 import {
-  selectIsFetching,
-  selectIsError,
   selectErrorMessage,
+  selectIsError,
+  selectIsFetching,
   selectIsSuccess,
 } from './slice/selectors';
 
@@ -27,6 +28,7 @@ export function LoginForm() {
   // Could use this for button spinner
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isFetching = useSelector(selectIsFetching);
+  const isSuccess = useSelector(selectIsSuccess);
   const isError = useSelector(selectIsError);
   const errorMessage = useSelector(selectErrorMessage);
 
@@ -72,7 +74,7 @@ export function LoginForm() {
       <Button type="submit" className="w-75">
         Submit
       </Button>
-      {/* {!!isSuccess && <Redirect to="/user" />} */}
+      {!!isSuccess && <Redirect to="/user" />}
     </Form>
   );
 }

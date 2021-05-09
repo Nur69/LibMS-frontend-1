@@ -5,6 +5,7 @@ import {
   setAccessToken,
   setRefreshToken,
 } from 'app/services/auth/tokens.service';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import {
   call,
   cancel,
@@ -14,13 +15,12 @@ import {
   put,
   take,
 } from 'redux-saga/effects';
-import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { Tokens } from 'types/Tokens';
 import { request } from 'utils/request';
 import { userActions } from '.';
 import { useLogoutActions } from '../../../AuthPage/slice/index';
 
-function* refreshTokenFlow(refreshToken) {
+export function* refreshTokenFlow(refreshToken) {
   try {
     // Try to refresh access token then store the new access token
     const options = {

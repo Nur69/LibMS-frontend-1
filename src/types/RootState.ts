@@ -5,6 +5,7 @@ import { AddBookAuthorsState } from 'app/pages/AddBookPage/components/AuthorsAut
 import { LogoutUserState } from 'app/pages/AuthPage/slice/types';
 import { LoginUserState } from 'app/pages/LoginPage/LoginForm/slice/types';
 import { RegisterUserState } from 'app/pages/RegisterPage/RegisterForm/slice/types';
+import { UserProfileState } from 'app/pages/UserGreeting/slice/types';
 
 /* 
   Because the redux-injectors injects your reducers asynchronously somewhere in your code
@@ -17,4 +18,5 @@ export interface RootState {
   addBookAuthors: AddBookAuthorsState;
   addBook: AddBookState;
   logoutUser: LogoutUserState;
+  userProfile: UserProfileState;
 }

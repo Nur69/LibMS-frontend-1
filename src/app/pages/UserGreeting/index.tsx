@@ -6,14 +6,20 @@
 import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
 import * as React from 'react';
+import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { selectEmail } from '../LoginPage/LoginForm/slice/selectors';
+import { userProfileActions } from './slice';
+import { selectEmail } from './slice/selectors';
 
 interface Props {}
 
 export function UserGreeting(props: Props) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userProfileActions.requestUserProfile);
+  }, [dispatch]);
   const email = useSelector(selectEmail);
 
   return (
