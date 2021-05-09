@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { useInjectSaga } from 'utils/redux-injectors';
 import { userProfileSaga } from './saga';
 import { User, UserProfileState } from './types';
 
@@ -41,10 +41,12 @@ const slice = createSlice({
 export const { actions: userProfileActions } = slice;
 
 export const useUserProfileSlice = () => {
-  useInjectReducer({ key: slice.name, reducer: slice.reducer });
   useInjectSaga({ key: slice.name, saga: userProfileSaga });
   return { actions: slice.actions };
 };
+
+const userGreetingReducer = slice.reducer;
+export default userGreetingReducer;
 
 /**
  * Example Usage:

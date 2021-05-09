@@ -1,7 +1,7 @@
 import { Tokens } from 'types/Tokens';
 
 export function getAccessToken(): string {
-  let accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
+  let accessToken = JSON.parse(localStorage.getItem('accessToken') || '{}');
   return accessToken;
 }
 
@@ -14,7 +14,7 @@ export function removeAccessToken(): void {
 }
 
 export function getRefreshToken(): string {
-  let refreshToken = JSON.parse(localStorage.getItem('refreshToken') || '');
+  let refreshToken = JSON.parse(localStorage.getItem('refreshToken') || '{}');
   return refreshToken;
 }
 

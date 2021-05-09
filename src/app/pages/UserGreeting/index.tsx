@@ -18,7 +18,8 @@ interface Props {}
 export function UserGreeting(props: Props) {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(userProfileActions.requestUserProfile);
+    dispatch(userProfileActions.requestUserProfile({}));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
   const email = useSelector(selectEmail);
 

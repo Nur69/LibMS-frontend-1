@@ -30,7 +30,10 @@ function* fetchUserProfile(accessToken) {
 export function* userProfileSaga() {
   while (true) {
     yield take(userProfileActions.requestUserProfile.type);
-    const refreshToken = getRefreshToken();
+    const refreshToken = yield call(getRefreshToken);
+    const refreskTokenPrime = getRefreshToken();
+    console.log('ref', refreshToken, 'refPrime', refreskTokenPrime);
+
     const accessToken = yield call(refreshTokenFlow, refreshToken);
     if (accessToken) {
       yield call(fetchUserProfile, accessToken);

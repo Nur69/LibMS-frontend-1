@@ -22,14 +22,15 @@ import { HomePage } from './pages/HomePage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
 import { UserGreeting } from './pages/UserGreeting/Loadable';
-import { userProfileActions } from './pages/UserGreeting/slice';
+import { useUserProfileSlice } from './pages/UserGreeting/slice';
 
 export function App() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
+  const { actions } = useUserProfileSlice();
 
   useEffect(() => {
-    dispatch(userProfileActions.requestUserProfile);
+    dispatch(actions.requestUserProfile({}));
   }, [dispatch]);
 
   return (
@@ -57,6 +58,7 @@ export function App() {
         <RouteUnauthenticated exact path="/auth" component={AuthPage} />
         <RouteUnauthenticated exact path="/login" component={LoginPage} />
         <RouteUnauthenticated exact path="/register" component={RegisterPage} />
+
         <RouteAuthenticated exact path="/user" component={UserGreeting} />
         <RouteAuthenticated exact path="/add-book" component={AddBookPage} />
         <RouteAuthenticated exact path="/dashboard" component={DashboardPage} />

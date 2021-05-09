@@ -30,12 +30,11 @@ export function* refreshTokenFlow(refreshToken) {
         Authorization: 'Bearer ' + refreshToken,
       },
     };
-    const accessToken: string = yield call(
+    const { accessToken } = yield call(
       request,
       AUTH_ENDPOINTS.refresh,
       options,
     );
-
     yield call(setAccessToken, accessToken);
 
     yield put(userActions.refreshSuccess());
@@ -60,7 +59,6 @@ function* authorizeLoop(refreshToken) {
 
 function* authentication() {
   const storedToken = yield call(getRefreshToken);
-
   // If no tokens found, wait until login successful
   if (!storedToken) yield take(userActions.loginSuccess.type);
   yield fork(authorizeLoop, storedToken);
