@@ -15,4 +15,5 @@ export interface RootState {
   registerUser: RegisterUserState;
   addBookAuthors: AddBookAuthorsState;
   addBook: AddBookState;
+  books: AddBookState[];
 }
