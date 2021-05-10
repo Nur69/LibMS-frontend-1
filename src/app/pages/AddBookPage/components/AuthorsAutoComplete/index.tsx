@@ -33,6 +33,7 @@ export function AuthorsAutoComplete(props: Props) {
 
   React.useEffect(() => {
     dispatch(actions.requestAuthors({ accessToken }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
