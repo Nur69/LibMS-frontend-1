@@ -2,6 +2,7 @@
 
 import { AddBookState } from 'app/pages/AddBookPage/AddBookForm/slice/types';
 import { AddBookAuthorsState } from 'app/pages/AddBookPage/components/AuthorsAutoComplete/slice/types';
+import { BooksState } from 'app/pages/BooksPage/BooksList/slice/types';
 import { LoginUserState } from 'app/pages/LoginPage/LoginForm/slice/types';
 import { RegisterUserState } from 'app/pages/RegisterPage/RegisterForm/slice/types';
 
@@ -15,5 +16,5 @@ export interface RootState {
   registerUser: RegisterUserState;
   addBookAuthors: AddBookAuthorsState;
   addBook: AddBookState;
-  books: AddBookState[];
+  books: BooksState;
 }

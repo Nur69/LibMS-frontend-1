@@ -3,7 +3,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { request } from 'utils/request';
 import { fetchBooksActions as actions, fetchBooksActions } from '.';
 
-export function* addBookSaga(action) {
+export function* fetchBooksSaga(action) {
   try {
     const options = {
       method: 'GET',
@@ -11,7 +11,7 @@ export function* addBookSaga(action) {
     };
     const books = yield call(request, BOOK_ENDPOINTS.books, options);
     yield put(
-      fetchBooksActions.FetchBookSuccess({
+      fetchBooksActions.FetchBooksSuccess({
         ...books,
       }),
     );
@@ -22,6 +22,6 @@ export function* addBookSaga(action) {
   }
 }
 
-export function* fetchBookRootState() {
-  yield takeLatest(actions.requestFetchBook.type, addBookSaga);
+export function* fetchBooksRootState() {
+  yield takeLatest(actions.requestFetchBooks.type, fetchBooksSaga);
 }

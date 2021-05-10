@@ -6,5 +6,5 @@ const selectSlice = (state: RootState) => state.books || initialState;
 
 export const selectState = createSelector(
   [selectSlice],
-  addBookFormState => addBookFormState,
+  addBooksFormState => addBooksFormState,
 );

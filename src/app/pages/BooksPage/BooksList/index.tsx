@@ -1,7 +1,7 @@
-import { memo } from 'react';
 import { Table } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo } from 'react';
 import { useFetchBooksSlice } from './slice';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectState } from './slice/selectors';
 
 const features = [
@@ -15,8 +15,8 @@ const features = [
 export const BooksList = memo(() => {
   const { actions } = useFetchBooksSlice();
   const dispatch = useDispatch();
-  dispatch(actions.requestFetchBook());
-  const books = useSelector(selectState);
+  dispatch(actions.requestFetchBooks());
+  const booksSelected = useSelector(selectState);
 
   return (
     <>
@@ -35,11 +35,11 @@ export const BooksList = memo(() => {
           </tr>
         </thead>
         <tbody>
-          {books.map((book, i) => (
-            <tr key={i}>
+          {booksSelected.books.map(book => (
+            <tr>
               <td>{book.title}</td>
               <td>{book.isbn}</td>
-              <td>{book.authors.map(author => author.name)}</td>
+              <td>{book.authors.map(author => author.name + ' ')}</td>
               <td>{book.publisher}</td>
               <td>{book.pageCount}</td>
               <td>{book.publishedDate.substring(0, 10)}</td>
