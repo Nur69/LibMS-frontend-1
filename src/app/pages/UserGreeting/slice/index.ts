@@ -13,6 +13,7 @@ export const initialState: UserProfileState = {
   isFetching: false,
   isSuccess: false,
   isError: false,
+  isDone: false,
   errorMessage: '',
 };
 
@@ -20,7 +21,7 @@ const slice = createSlice({
   name: 'userProfile',
   initialState,
   reducers: {
-    requestUserProfile(state, action: PayloadAction<any>) {
+    requestUserProfile(state) {
       state.isFetching = true;
     },
     fetchProfileSuccess(state, action: PayloadAction<User>) {
@@ -29,11 +30,13 @@ const slice = createSlice({
       state.id = action.payload.id;
       state.email = action.payload.email;
       state.isAuthenticated = true;
+      state.isDone = true;
     },
     fetchProfileFailed(state, action: PayloadAction<{ message: string }>) {
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = action.payload.message;
+      state.isDone = true;
     },
   },
 });
@@ -47,15 +50,3 @@ export const useUserProfileSlice = () => {
 
 const userGreetingReducer = slice.reducer;
 export default userGreetingReducer;
-
-/**
- * Example Usage:
- *
- * export function MyComponentNeedingThisSlice() {
- *  const { actions } = useUserProfileSlice();
- *
- *  const onButtonClick = (evt) => {
- *    dispatch(actions.someAction());
- *   };
- * }
- */

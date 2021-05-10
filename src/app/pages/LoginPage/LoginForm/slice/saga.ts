@@ -41,7 +41,7 @@ export function* refreshTokenFlow(refreshToken) {
     return accessToken;
   } catch (e) {
     yield call(clearTokens);
-    yield put(userActions.refreshFailed(e));
+    yield put(userActions.refreshFailed({ message: 'Session dropped' }));
     return null;
   }
 }

@@ -11,5 +11,6 @@ export interface UserProfileState extends User {
   isFetching: boolean;
   isSuccess: boolean;
   isError: boolean;
+  isDone: boolean;
   errorMessage: string;
 }

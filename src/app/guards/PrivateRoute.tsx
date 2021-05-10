@@ -2,14 +2,15 @@ import { selectIsAuthenticated } from 'app/pages/UserGreeting/slice/selectors';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 
-export default function RouteUnauthenticated({
+export default function PrivateRoute({
   component: Component,
   path,
   ...rest
 }: RouteProps) {
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+  if (!isAuthenticated) {
+    // dispatch get user profile
+    return <Redirect to="/auth" />;
   }
 
   return <Route {...rest} component={Component} path={path} />;

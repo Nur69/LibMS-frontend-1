@@ -16,6 +16,16 @@ export const selectIsAuthenticated = createSelector(
   userProfileState => userProfileState.isAuthenticated,
 );
 
+export const selectIsFetching = createSelector(
+  [selectSlice],
+  userProfileState => userProfileState.isFetching,
+);
+
+export const selectIsDone = createSelector(
+  [selectSlice],
+  userProfileState => userProfileState.isDone,
+);
+
 export const selectErrorMessage = createSelector(
   [selectSlice],
   userProfileState => userProfileState.errorMessage,

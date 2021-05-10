@@ -1,6 +1,9 @@
 import { USER_ENDPOINTS } from 'app/configs/endpoints';
 import { refreshTokenFlow } from 'app/pages/LoginPage/LoginForm/slice/saga';
-import { getRefreshToken } from 'app/services/auth/tokens.service';
+import {
+  getAccessToken,
+  getRefreshToken,
+} from 'app/services/auth/tokens.service';
 import { call, put, take } from 'redux-saga/effects';
 import { request } from 'utils/request';
 import { userProfileActions } from '.';
@@ -24,19 +27,18 @@ function* fetchUserProfile(accessToken) {
         message: 'Fetching Profile Failed',
       }),
     );
+    return null;
   }
 }
 
 export function* userProfileSaga() {
-  while (true) {
-    yield take(userProfileActions.requestUserProfile.type);
+  yield take(userProfileActions.requestUserProfile.type);
+  let accessToken = yield call(getAccessToken);
+  const user = yield call(fetchUserProfile, accessToken);
+  console.log('User', user);
+  if (!user) {
     const refreshToken = yield call(getRefreshToken);
-    const refreskTokenPrime = getRefreshToken();
-    console.log('ref', refreshToken, 'refPrime', refreskTokenPrime);
-
-    const accessToken = yield call(refreshTokenFlow, refreshToken);
-    if (accessToken) {
-      yield call(fetchUserProfile, accessToken);
-    }
+    accessToken = yield call(refreshTokenFlow, refreshToken);
+    if (accessToken) yield call(fetchUserProfile, accessToken);
   }
 }
