@@ -6,8 +6,9 @@
 import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
 import * as React from 'react';
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { selectEmail } from '../LoginPage/LoginForm/slice/selectors';
 
@@ -26,6 +27,10 @@ export function UserGreeting(props: Props) {
         >
           Welcome {email.split('@')[0]}
         </div>
+        {/** I need this to access the add book page without loosing the store */}
+        <Link to="/add-book">
+          <Button>Add Book</Button>
+        </Link>
       </Container>
       <Footer />
     </Div>

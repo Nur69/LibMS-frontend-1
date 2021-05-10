@@ -1,5 +1,4 @@
 import { createSelector } from '@reduxjs/toolkit';
-
 import { RootState } from 'types';
 import { initialState } from '.';
 
@@ -30,4 +29,9 @@ export const selectIsSuccess = createSelector(
 export const selectEmail = createSelector(
   [selectSlice],
   loginUserFormState => loginUserFormState.email,
+);
+
+export const selectAccessToken = createSelector(
+  [selectSlice],
+  loginUserFormState => loginUserFormState.accessToken,
 );

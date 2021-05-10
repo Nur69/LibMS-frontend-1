@@ -3,21 +3,18 @@
  * AuthorsAutoComplete
  *
  */
+import { selectAccessToken } from 'app/pages/LoginPage/LoginForm/slice/selectors';
 import * as React from 'react';
 import { ChangeEvent } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthorBadge } from '../AuthorBadge';
-import { Author } from './slice/types';
+import { useAddBookAuthorsSlice } from './slice';
+import { selectAuthors } from './slice/selectors';
 
 interface Props {}
-
-// Dummy data that will be later replaced by data from the store fetched from the backend
-const tempAuthors: Author[] = [
-  { id: '12-a', name: 'John Hubert Doe' },
-  { id: '13-b', name: 'William Press' },
-];
 
 let NEW_AUTHOR_ID = 0;
 
@@ -28,6 +25,16 @@ export const ConnectForm = ({ children }) => {
 };
 
 export function AuthorsAutoComplete(props: Props) {
+  const dispatch = useDispatch();
+  const { actions } = useAddBookAuthorsSlice();
+
+  const accessToken = useSelector(selectAccessToken);
+  const authorsList = useSelector(selectAuthors);
+
+  React.useEffect(() => {
+    dispatch(actions.requestAuthors({ accessToken }));
+  }, []);
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { fields, append, remove } = useFieldArray({
     name: 'authors',
@@ -87,7 +94,7 @@ export function AuthorsAutoComplete(props: Props) {
                 id="author"
                 isInvalid={!!methods.formState.errors.authors}
                 labelKey={option => option.name}
-                options={tempAuthors}
+                options={authorsList}
                 onChange={authorSelected} // selected is an array
                 onKeyDown={addNewAuthor}
                 minLength={2}

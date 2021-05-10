@@ -15,8 +15,7 @@ export function AuthorBadge(props: Props) {
   };
   return (
     <CustomBadge variant="secondary" className="ml-1">
-      {props.name}
-      <i className="bi bi-x-circle" onClick={removeAuthor}></i>
+      {props.name} <i className="bi bi-x-circle" onClick={removeAuthor}></i>
     </CustomBadge>
   );
 }

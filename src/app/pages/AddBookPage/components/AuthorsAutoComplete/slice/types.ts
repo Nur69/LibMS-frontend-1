@@ -7,6 +7,6 @@ export interface Author {
 
 export interface AddBookAuthorsState {
   fetchedList: boolean;
+  isFetching: boolean;
   authorsList: Author[];
-  addedBookAuthorsList: Author[];
 }
