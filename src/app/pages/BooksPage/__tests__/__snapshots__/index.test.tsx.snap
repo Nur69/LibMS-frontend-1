@@ -298,18 +298,7 @@ exports[`<BooksPage  /> should match snapshot 1`] = `
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td />
-            <td />
-            <td />
-            <td />
-            <td>
-              0
-            </td>
-            <td />
-          </tr>
-        </tbody>
+        <tbody />
       </table>
     </div>
   </div>
