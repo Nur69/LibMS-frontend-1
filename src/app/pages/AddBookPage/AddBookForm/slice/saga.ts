@@ -18,11 +18,14 @@ export function* addBookSaga(action) {
       pageCount: action.payload.pageCount,
       image: action.payload.image,
     };
-    console.table(book);
     const formData = objectToFormData(book);
     console.table(Object.fromEntries(formData));
     const options = {
       method: 'POST',
+      headers: {
+        Accept: '*/*',
+        Authorization: 'Bearer ' + action.payload.accessToken,
+      },
       body: formData,
     };
     yield call(request, BOOK_ENDPOINTS.addBook, options);

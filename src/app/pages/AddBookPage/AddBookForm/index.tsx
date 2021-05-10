@@ -1,24 +1,26 @@
-import { useForm, FormProvider } from 'react-hook-form';
-import { Alert, Button, Col, Form, Row } from 'react-bootstrap';
+import { CustomImageInput } from 'app/components/CustomImageInput';
+import { selectAccessToken } from 'app/pages/LoginPage/LoginForm/slice/selectors';
 import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
 import { ValidationSchema } from 'app/services/validation/schemes/AddBook';
-import { AddBookForm } from './AddBookForm';
-import { CustomInputField } from '../components/CustomInputField';
-import { CustomImageInput } from 'app/components/CustomImageInput';
-import { useAddBookSlice } from './slice';
+import React from 'react';
+import { Alert, Button, Col, Form, Row } from 'react-bootstrap';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthorsAutoComplete } from '../components/AuthorsAutoComplete';
+import { CustomInputField } from '../components/CustomInputField';
+import { AddBookForm } from './AddBookForm';
+import { useAddBookSlice } from './slice';
 import {
   selectErrorMessage,
   selectIsError,
   selectIsSuccess,
   selectSuccessMessage,
 } from './slice/selectors';
-import React from 'react';
 
 export function AddBook() {
   const { actions } = useAddBookSlice();
   const dispatch = useDispatch();
+  const accessToken = useSelector(selectAccessToken);
 
   const resolver = useYupValidationResolver(ValidationSchema);
   const methods = useForm<any>({
@@ -42,6 +44,7 @@ export function AddBook() {
         ...data,
         image,
         publicationDate,
+        accessToken,
       }),
     );
   };
