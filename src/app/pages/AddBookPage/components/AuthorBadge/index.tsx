@@ -4,9 +4,7 @@ import styled from 'styled-components/macro';
 
 interface Props {
   fieldId: number;
-  firstName: string;
-  middleName?: string;
-  lastName: string;
+  name: string;
   remove: Function;
 }
 
@@ -17,9 +15,7 @@ export function AuthorBadge(props: Props) {
   };
   return (
     <CustomBadge variant="secondary" className="ml-1">
-      {`${props.firstName} ${props.middleName ? props.middleName : ''} ${
-        props.lastName
-      } `}
+      {props.name}
       <i className="bi bi-x-circle" onClick={removeAuthor}></i>
     </CustomBadge>
   );

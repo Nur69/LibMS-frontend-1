@@ -4,19 +4,19 @@
  *
  */
 import * as React from 'react';
+import { ChangeEvent } from 'react';
 import { Form } from 'react-bootstrap';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import { AuthorBadge } from '../AuthorBadge';
 import { Author } from './slice/types';
-import { useFormContext, Controller, useFieldArray } from 'react-hook-form';
-import { Typeahead } from 'react-bootstrap-typeahead';
-import { ChangeEvent } from 'react';
 
 interface Props {}
 
 // Dummy data that will be later replaced by data from the store fetched from the backend
 const tempAuthors: Author[] = [
-  { id: '12-a', firstName: 'John', middleName: 'Hubert', lastName: 'Doe' },
-  { id: '13-x', firstName: 'William', lastName: 'Press' },
+  { id: '12-a', name: 'John Hubert Doe' },
+  { id: '13-b', name: 'William Press' },
 ];
 
 let NEW_AUTHOR_ID = 0;
@@ -39,20 +39,10 @@ export function AuthorsAutoComplete(props: Props) {
 
   const authorSelected = (list: any[]) => {
     // this will populate that field array (i.e. 'authors' field)
-    if (list[0].middleName) {
-      append({
-        id: list[0].id,
-        firstName: list[0].firstName,
-        middleName: list[0].middleName,
-        lastName: list[0].lastName,
-      });
-    } else {
-      append({
-        id: list[0].id,
-        firstName: list[0].firstName,
-        lastName: list[0].lastName,
-      });
-    }
+    append({
+      id: list[0].id,
+      name: list[0].name,
+    });
     // clear field once the author is added
     ref.current.clear();
   };
@@ -63,24 +53,10 @@ export function AuthorsAutoComplete(props: Props) {
     if (t.key === 'Enter') {
       const v = ((t as unknown) as ChangeEvent<HTMLInputElement>).target.value;
       NEW_AUTHOR_ID += 1;
-      const author = v.split(' ');
-      if (author.length === 3) {
-        append({
-          id: NEW_AUTHOR_ID,
-          firstName: author[0],
-          middleName: author[1],
-          lastName: author[2],
-          new: true, // <-- tag for the backend
-        });
-      }
-      if (author.length === 2) {
-        append({
-          id: NEW_AUTHOR_ID,
-          firstName: author[0],
-          lastName: author[1],
-          new: true,
-        });
-      }
+      append({
+        id: NEW_AUTHOR_ID,
+        name: v,
+      });
       ref.current.clear();
     }
   };
@@ -94,9 +70,7 @@ export function AuthorsAutoComplete(props: Props) {
             {methods.getValues('authors')?.map((author, i) => (
               <AuthorBadge
                 key={i}
-                firstName={author.firstName}
-                middleName={author.middleName}
-                lastName={author.lastName}
+                name={author.name}
                 fieldId={i}
                 remove={remove}
               />
@@ -112,11 +86,7 @@ export function AuthorsAutoComplete(props: Props) {
                 ref={ref}
                 id="author"
                 isInvalid={!!methods.formState.errors.authors}
-                labelKey={option =>
-                  `${option.firstName} ${
-                    option.middleName ? option.middleName : ''
-                  } ${option.lastName}`
-                }
+                labelKey={option => option.name}
                 options={tempAuthors}
                 onChange={authorSelected} // selected is an array
                 onKeyDown={addNewAuthor}

@@ -2,9 +2,7 @@
 
 export interface Author {
   id: string | number;
-  firstName: string;
-  middleName?: string;
-  lastName: string;
+  name: string;
 }
 
 export interface AddBookAuthorsState {
