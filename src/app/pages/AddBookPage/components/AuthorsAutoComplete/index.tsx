@@ -51,7 +51,7 @@ export function AuthorsAutoComplete(props: Props) {
   const addNewAuthor = (e: Event) => {
     const t = e as KeyboardEvent;
     if (t.key === 'Enter') {
-      const v = ((t as unknown) as ChangeEvent<HTMLInputElement>).target.value;
+      const v = (t as unknown as ChangeEvent<HTMLInputElement>).target.value;
       NEW_AUTHOR_ID += 1;
       append({
         id: NEW_AUTHOR_ID,
