@@ -20,14 +20,17 @@ export const initialState: AddBookState = {
   isError: false,
   errorMessage: '',
   successMessage: '',
+  accessToken: '',
 };
 
 const slice = createSlice({
   name: 'addBook',
   initialState,
   reducers: {
-    requestAddBook(state, action) {
+    requestAddBook(state, action: PayloadAction<any>) {
       state.isFetching = true;
+      // Temporary fix
+      state.accessToken = action.payload.accessToken;
     },
     addBookSuccess(state, action: PayloadAction<any>) {
       // Might not be necessary

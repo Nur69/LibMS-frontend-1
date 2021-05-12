@@ -19,4 +19,5 @@ export interface AddBookState extends Book {
   isError: boolean;
   errorMessage: string;
   successMessage: string;
+  accessToken: string;
 }

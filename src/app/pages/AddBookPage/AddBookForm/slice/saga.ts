@@ -32,17 +32,16 @@ export function* addBookSaga(action) {
     yield put(
       addBookActions.addBookSuccess({
         ...book,
-        message: 'Book Added Successfully',
+        message: 'Book added!',
       }),
     );
   } catch (error) {
-    if (error.response?.status !== 200) {
-      yield put(
-        addBookActions.addBookFailed({
-          message: 'Adding Book Failed: Please retry',
-        }),
-      );
-    }
+    console.log(error);
+    yield put(
+      addBookActions.addBookFailed({
+        message: error.message,
+      }),
+    );
   }
 }
 

@@ -1,9 +1,10 @@
+import { RequiredFormLabel } from 'app/components/RequiredFormLabel';
 import { SUPPORTED_IMAGE_FORMATS } from 'app/services/validation/schemes/AddBook';
 import React from 'react';
 import { Form, Image } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
-
 interface IProps {
+  required?;
   label: string;
   title: string;
   id: string;
@@ -72,7 +73,13 @@ export function CustomImageInput(props: IProps) {
     <ConnectForm>
       {methods => (
         <Form.Group>
-          <Form.Label htmlFor={props.id}>{props.label}</Form.Label>
+          {props.required ? (
+            <RequiredFormLabel htmlFor={props.id}>
+              {props.label}
+            </RequiredFormLabel>
+          ) : (
+            <Form.Label htmlFor={props.id}>{props.label}</Form.Label>
+          )}
           <br></br>
           {showPreloadImage()}
           <Form.File id={props.id} custom>

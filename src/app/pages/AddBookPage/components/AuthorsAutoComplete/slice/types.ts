@@ -2,7 +2,7 @@
 
 export interface Author {
   id: string | number;
-  name: string;
+  fullName: string;
 }
 
 export interface AddBookAuthorsState {

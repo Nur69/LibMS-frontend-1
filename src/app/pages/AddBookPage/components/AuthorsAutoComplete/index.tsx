@@ -3,9 +3,9 @@
  * AuthorsAutoComplete
  *
  */
+import { RequiredFormLabel } from 'app/components/RequiredFormLabel';
 import { selectAccessToken } from 'app/pages/LoginPage/LoginForm/slice/selectors';
 import * as React from 'react';
-import { ChangeEvent } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
@@ -13,8 +13,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AuthorBadge } from '../AuthorBadge';
 import { useAddBookAuthorsSlice } from './slice';
 import { selectAuthors } from './slice/selectors';
+import { Author } from './slice/types';
 
-interface Props {}
+interface IProps {
+  required?;
+}
 
 let NEW_AUTHOR_ID = 0;
 
@@ -24,7 +27,7 @@ export const ConnectForm = ({ children }) => {
   return children({ ...methods });
 };
 
-export function AuthorsAutoComplete(props: Props) {
+export function AuthorsAutoComplete(props: IProps) {
   const dispatch = useDispatch();
   const { actions } = useAddBookAuthorsSlice();
 
@@ -45,25 +48,25 @@ export function AuthorsAutoComplete(props: Props) {
   // to clear field after author addition
   const ref = React.useRef<any>(null);
 
-  const authorSelected = (list: any[]) => {
+  const authorSelected = (list: Author[]) => {
     // this will populate that field array (i.e. 'authors' field)
     append({
       id: list[0].id,
-      name: list[0].name,
+      fullName: list[0].fullName,
     });
     // clear field once the author is added
     ref.current.clear();
   };
 
   // method for adding a new author not in the list
-  const addNewAuthor = (e: Event) => {
-    const t = e as KeyboardEvent;
-    if (t.key === 'Enter') {
-      const v = (t as unknown as ChangeEvent<HTMLInputElement>).target.value;
+  const addNewAuthor = (event: Event) => {
+    const key = (event as KeyboardEvent).key;
+    const value = (event.target as HTMLInputElement).value;
+    if (key === 'Enter') {
       NEW_AUTHOR_ID += 1;
       append({
         id: NEW_AUTHOR_ID,
-        name: v,
+        fullName: value,
       });
       ref.current.clear();
     }
@@ -73,12 +76,16 @@ export function AuthorsAutoComplete(props: Props) {
     <ConnectForm>
       {methods => (
         <Form.Group>
-          <Form.Label htmlFor="author">Author(s)</Form.Label>
+          {props.required ? (
+            <RequiredFormLabel htmlFor="author">Author(s)</RequiredFormLabel>
+          ) : (
+            <Form.Label htmlFor="author">Author(s)</Form.Label>
+          )}
           <div className="mb-2">
-            {methods.getValues('authors')?.map((author, i) => (
+            {methods.getValues('authors')?.map((author: Author, i) => (
               <AuthorBadge
                 key={i}
-                name={author.name}
+                name={author.fullName}
                 fieldId={i}
                 remove={remove}
               />
@@ -94,7 +101,7 @@ export function AuthorsAutoComplete(props: Props) {
                 ref={ref}
                 id="author"
                 isInvalid={!!methods.formState.errors.authors}
-                labelKey={option => option.name}
+                labelKey={author => author.fullName}
                 options={authorsList}
                 onChange={authorSelected} // selected is an array
                 onKeyDown={addNewAuthor}
