@@ -1,5 +1,10 @@
 import { CustomImageInput } from 'app/components/CustomImageInput';
-import { selectAccessToken } from 'app/pages/LoginPage/LoginForm/slice/selectors';
+import {
+  selectAccessToken,
+  selectErrorMessage,
+  selectIsError,
+  selectIsSuccess,
+} from 'app/pages/LoginPage/LoginForm/slice/selectors';
 import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
 import { ValidationSchema } from 'app/services/validation/schemes/AddBook';
 import React, { useState } from 'react';
@@ -10,25 +15,28 @@ import { AuthorsAutoComplete } from '../components/AuthorsAutoComplete';
 import { CustomInputField } from '../components/CustomInputField';
 import { AddBookForm } from './AddBookForm';
 import { useAddBookSlice } from './slice';
-import {
-  selectErrorMessage,
-  selectIsError,
-  selectIsSuccess,
-  selectSuccessMessage,
-} from './slice/selectors';
+import { selectSuccessMessage } from './slice/selectors';
 
-export function AddBook() {
-  const { actions } = useAddBookSlice();
-  const dispatch = useDispatch();
-  const accessToken = useSelector(selectAccessToken);
+interface IProps {}
+
+export function AddBook(props: IProps) {
   const [showAlert, setShowAlert] = useState(true);
 
+  const { actions } = useAddBookSlice();
+  const dispatch = useDispatch();
+
+  const successMessage = useSelector(selectSuccessMessage);
+  const errorMessage = useSelector(selectErrorMessage);
+  const isError = useSelector(selectIsError);
+  const isSuccess = useSelector(selectIsSuccess);
+  const accessToken = useSelector(selectAccessToken);
+
   const resolver = useYupValidationResolver(ValidationSchema);
-  const methods = useForm<any>({
+  const methods = useForm({
     resolver,
   });
 
-  const onSubmit = (data: AddBookForm): void => {
+  const onSubmit = (data: AddBookForm, event): void => {
     let publicationDate = new Date(data.publicationDate).toISOString();
     dispatch(
       actions.requestAddBook({
@@ -39,12 +47,8 @@ export function AddBook() {
       }),
     );
     setShowAlert(true);
+    event.target.reset();
   };
-
-  const successMessage = useSelector(selectSuccessMessage);
-  const errorMessage = useSelector(selectErrorMessage);
-  const isError = useSelector(selectIsError);
-  const isSuccess = useSelector(selectIsSuccess);
 
   function AlertDismissible() {
     if (isError && showAlert) {
