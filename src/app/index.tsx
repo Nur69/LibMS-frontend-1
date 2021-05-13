@@ -7,11 +7,12 @@
  */
 
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ERROR_ACTION, WAIT_FOR_ACTION } from 'redux-wait-for-action';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import PrivateRoute from './guards/PrivateRoute';
 import PublicRoute from './guards/PublicRoute';
@@ -28,9 +29,22 @@ export function App() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
   const { actions } = useUserProfileSlice();
+  const [isDone, setIsDone] = useState(false);
+
+  function fetchData(dispatch) {
+    return dispatch({
+      type: actions.requestUserProfile.type,
+      [WAIT_FOR_ACTION]: actions.fetchProfileSuccess.type,
+      [ERROR_ACTION]: actions.fetchProfileFailed.type,
+    });
+  }
+
   useEffect(() => {
-    dispatch(actions.requestUserProfile());
-  }, []);
+    fetchData(dispatch).then(result => {
+      console.log('result', result);
+      setIsDone(true);
+    });
+  }, [isDone]);
 
   return (
     <BrowserRouter>
@@ -51,17 +65,19 @@ export function App() {
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
         />
       </Helmet>
-      <Switch>
-        <PublicRoute exact path="/" component={HomePage} />
-        <PublicRoute exact path="/auth" component={AuthPage} />
-        <PublicRoute exact path="/login" component={LoginPage} />
-        <PublicRoute exact path="/register" component={RegisterPage} />
+      {isDone && (
+        <Switch>
+          <PublicRoute exact path="/" component={HomePage} />
+          <PublicRoute exact path="/auth" component={AuthPage} />
+          <PublicRoute exact path="/login" component={LoginPage} />
+          <PublicRoute exact path="/register" component={RegisterPage} />
 
-        <PrivateRoute exact path="/user" component={UserGreeting} />
-        <PrivateRoute exact path="/add-book" component={AddBookPage} />
-        <PrivateRoute exact path="/dashboard" component={DashboardPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+          <PrivateRoute exact path="/user" component={UserGreeting} />
+          <PrivateRoute exact path="/add-book" component={AddBookPage} />
+          <PrivateRoute exact path="/dashboard" component={DashboardPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      )}
     </BrowserRouter>
   );
 }
