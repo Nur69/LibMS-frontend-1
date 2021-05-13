@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
+    "@hookform/resolvers": "2.4.0",
     "@reduxjs/toolkit": "1.5.1",
     "@testing-library/jest-dom": "5.12.0",
     "@testing-library/react": "11.2.6",
@@ -130,6 +131,8 @@
     }
   },
   "devDependencies": {
+    "class-transformer": "0.4.0",
+    "class-validator": "0.13.1",
     "cz-conventional-changelog": "3.3.0",
     "pinst": "2.1.6"
   },

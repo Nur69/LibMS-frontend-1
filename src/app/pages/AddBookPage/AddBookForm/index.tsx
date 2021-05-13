@@ -1,3 +1,4 @@
+import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import { CustomImageInput } from 'app/components/CustomImageInput';
 import {
   selectAccessToken,
@@ -5,8 +6,7 @@ import {
   selectIsError,
   selectIsSuccess,
 } from 'app/pages/LoginPage/LoginForm/slice/selectors';
-import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
-import { ValidationSchema } from 'app/services/validation/schemes/AddBook';
+import { Book } from 'app/services/validation/schemes/Book';
 import React, { useState } from 'react';
 import { Alert, Button, Col, Form, Row } from 'react-bootstrap';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -31,10 +31,9 @@ export function AddBook(props: IProps) {
   const isSuccess = useSelector(selectIsSuccess);
   const accessToken = useSelector(selectAccessToken);
 
-  const resolver = useYupValidationResolver(ValidationSchema);
-  const methods = useForm({
-    resolver,
-  });
+  // const resolver = useYupValidationResolver(ValidationSchema);
+  const resolver = classValidatorResolver(Book);
+  const methods = useForm<Book>({ resolver });
 
   const onSubmit = (data: AddBookForm, event): void => {
     let publicationDate = new Date(data.publicationDate).toISOString();
