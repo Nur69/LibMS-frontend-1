@@ -11,6 +11,7 @@ import styled from 'styled-components/macro';
 interface Props {}
 
 export function BookDescPage(props: Props) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let { id } = useParams<{ id: string }>();
 
   const maxChar = 150;
@@ -49,6 +50,7 @@ export function BookDescPage(props: Props) {
       'The award-winning and highly influential Software Architecture in Practice, Third Edition, has been substantially revised to reflect the latest developments in the field. In a real-world setting, the book once again introduces the concepts and best practices of software architecture―how a software system is structured and how that system’s elements are meant to interact. Distinct from the details of implementation, algorithm, and data representation, an architecture holds the key to achieving system quality, is a reusable asset that can be applied to subsequent systems, and is crucial to a software organization’s business strategy.',
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getBookFromStore = (id: number): any => {};
 
   return (
