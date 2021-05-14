@@ -8,18 +8,17 @@
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
-
-import { HomePage } from './pages/HomePage/Loadable';
+import { useTranslation } from 'react-i18next';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
+import { AddBookPage } from './pages/AddBookPage/Loadable';
 import { AuthPage } from './pages/AuthPage/Loadable';
+import { BookDescPage } from './pages/BookDescPage';
+import { BooksPage } from './pages/BooksPage/Loadable';
+import { DashboardPage } from './pages/DashboardPage/Loadable';
+import { HomePage } from './pages/HomePage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
-import { AddBookPage } from './pages/AddBookPage/Loadable';
-import { DashboardPage } from './pages/DashboardPage/Loadable';
-import { BooksPage } from './pages/BooksPage/Loadable';
-
-import { useTranslation } from 'react-i18next';
 import { UserGreeting } from './pages/UserGreeting/Loadable';
 
 export function App() {
@@ -53,6 +52,7 @@ export function App() {
         <Route exact path="/add-book" component={AddBookPage} />
         <Route exact path="/dashboard" component={DashboardPage} />
         <Route exact path="/books" component={BooksPage} />
+        <Route exact path="/books/:id" component={BookDescPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
