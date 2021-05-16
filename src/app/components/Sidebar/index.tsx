@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { Nav, Navbar, Row } from 'react-bootstrap';
-import LIBMSLOGO from './assets/LibMSLOGO.png';
 import * as IconName from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import LIBMSLOGO from './assets/LibMSLOGO.png';
 
 const navItemsTop = [
   { name: 'Dashboard', link: '/dashboard', icon: IconName.FaChartBar },

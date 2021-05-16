@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<AuthPage  /> should match snapshot 1`] = `
+.c3 {
+  background-color: #203549;
+}
+
 .c2 {
   background-color: #007ea4;
 }
 
 .c1 {
-  background-color: #203549;
-}
-
-.c3 {
   background-color: #203549;
 }
 

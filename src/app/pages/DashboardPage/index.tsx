@@ -1,5 +1,5 @@
 import { Sidebar } from 'app/components/Sidebar';
-import { Row, Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 export function DashboardPage() {
   return (

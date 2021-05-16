@@ -1,10 +1,9 @@
 import { CustomImageInput } from 'app/components/CustomImageInput';
 import {
-  selectAccessToken,
   selectErrorMessage,
   selectIsError,
   selectIsSuccess,
-} from 'app/pages/LoginPage/LoginForm/slice/selectors';
+} from 'app/pages/AddBookPage/AddBookForm/slice/selectors';
 import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
 import { ValidationSchema } from 'app/services/validation/schemes/AddBook';
 import React, { useState } from 'react';
@@ -29,7 +28,6 @@ export function AddBook(props: IProps) {
   const errorMessage = useSelector(selectErrorMessage);
   const isError = useSelector(selectIsError);
   const isSuccess = useSelector(selectIsSuccess);
-  const accessToken = useSelector(selectAccessToken);
 
   const resolver = useYupValidationResolver(ValidationSchema);
   const methods = useForm({
@@ -43,7 +41,6 @@ export function AddBook(props: IProps) {
         ...data,
         image: data.image[0],
         publicationDate,
-        accessToken,
       }),
     );
     setShowAlert(true);

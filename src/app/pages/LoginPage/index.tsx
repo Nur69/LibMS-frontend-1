@@ -3,12 +3,12 @@
  * LoginPage
  *
  */
-import * as React from 'react';
+import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
-import { Row, Col, Container } from 'react-bootstrap';
+import * as React from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { Footer } from 'app/components/Footer';
 import { LoginForm } from './LoginForm';
 import { SecurityNotice } from './SecurityNotice';
 

@@ -1,4 +1,5 @@
 import { BOOK_ENDPOINTS } from 'app/configs/endpoints';
+import { getToken } from 'app/services/auth/tokens.service';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import objectToFormData from 'utils/form-data';
 import { request } from 'utils/request';
@@ -19,12 +20,11 @@ export function* addBookSaga(action) {
       image: action.payload.image,
     };
     const formData = objectToFormData(book);
-    console.table(Object.fromEntries(formData));
     const options = {
       method: 'POST',
       headers: {
         Accept: '*/*',
-        Authorization: 'Bearer ' + action.payload.accessToken,
+        Authorization: 'Bearer ' + getToken(),
       },
       body: formData,
     };
@@ -36,7 +36,6 @@ export function* addBookSaga(action) {
       }),
     );
   } catch (error) {
-    console.log(error);
     yield put(
       addBookActions.addBookFailed({
         message: error.message,

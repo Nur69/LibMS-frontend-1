@@ -10,7 +10,9 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
+import { AuthenticatedRoute, UnauthenticatedRoute } from './guards/Routes';
 import { AddBookPage } from './pages/AddBookPage/Loadable';
 import { AuthPage } from './pages/AuthPage/Loadable';
 import { BookDescPage } from './pages/BookDescPage';
@@ -19,10 +21,11 @@ import { DashboardPage } from './pages/DashboardPage/Loadable';
 import { HomePage } from './pages/HomePage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
-import { UserGreeting } from './pages/UserGreeting/Loadable';
+import { UserProfilePage } from './pages/UserProfilePage/Loadable';
 
 export function App() {
   const { i18n } = useTranslation();
+
   return (
     <BrowserRouter>
       <Helmet
@@ -42,19 +45,30 @@ export function App() {
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
         />
       </Helmet>
-
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/auth" component={AuthPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/user" component={UserGreeting} />
-        <Route exact path="/add-book" component={AddBookPage} />
-        <Route exact path="/dashboard" component={DashboardPage} />
-        <Route exact path="/books" component={BooksPage} />
-        <Route exact path="/books/:id" component={BookDescPage} />
+        <UnauthenticatedRoute exact path="/" component={HomePage} />
+        <UnauthenticatedRoute exact path="/auth" component={AuthPage} />
+        <UnauthenticatedRoute exact path="/login" component={LoginPage} />
+        <UnauthenticatedRoute exact path="/register" component={RegisterPage} />
+
+        <AuthenticatedRoute exact path="/user" component={UserProfilePage} />
+        <AuthenticatedRoute exact path="/add-book" component={AddBookPage} />
+        <AuthenticatedRoute exact path="/dashboard" component={DashboardPage} />
+        <AuthenticatedRoute exact path="/books" component={BooksPage} />
+        <AuthenticatedRoute exact path="/books/:id" component={BookDescPage} />
         <Route component={NotFoundPage} />
       </Switch>
+      <GlobalStyle></GlobalStyle>
     </BrowserRouter>
   );
 }
+
+/* istanbul ignore next */
+export const GlobalStyle = createGlobalStyle`
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+  }
+`;

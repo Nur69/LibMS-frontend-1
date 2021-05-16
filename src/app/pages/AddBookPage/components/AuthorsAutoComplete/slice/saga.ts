@@ -2,6 +2,7 @@
 // import { addBookAuthorsActions as actions } from '.';
 
 import { BOOK_ENDPOINTS } from 'app/configs/endpoints';
+import { getToken } from 'app/services/auth/tokens.service';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { request } from 'utils/request';
 import { addBookAuthorsActions as actions } from '.';
@@ -12,7 +13,7 @@ export function* fetchAuthorsSaga(action) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + action.payload.accessToken,
+        Authorization: 'Bearer ' + getToken(),
       },
     });
 

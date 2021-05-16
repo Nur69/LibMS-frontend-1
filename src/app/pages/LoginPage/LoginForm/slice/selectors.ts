@@ -26,11 +26,6 @@ export const selectIsSuccess = createSelector(
   loginUserFormState => loginUserFormState.isSuccess,
 );
 
-export const selectEmail = createSelector(
-  [selectSlice],
-  loginUserFormState => loginUserFormState.email,
-);
-
 export const selectAccessToken = createSelector(
   [selectSlice],
   loginUserFormState => loginUserFormState.accessToken,

@@ -1,9 +1,9 @@
-import { RootStateKeyType } from '../types/injector-typings';
 import {
   createSlice as createSliceOriginal,
-  SliceCaseReducers,
   CreateSliceOptions,
+  SliceCaseReducers,
 } from '@reduxjs/toolkit';
+import { RootStateKeyType } from '../types/injector-typings';
 
 /* Wrap createSlice with stricter Name options */
 
@@ -11,7 +11,7 @@ import {
 export const createSlice = <
   State,
   CaseReducers extends SliceCaseReducers<State>,
-  Name extends RootStateKeyType,
+  Name extends RootStateKeyType
 >(
   options: CreateSliceOptions<State, CaseReducers, Name>,
 ) => {
