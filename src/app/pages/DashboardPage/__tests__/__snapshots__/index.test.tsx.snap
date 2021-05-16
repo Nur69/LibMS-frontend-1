@@ -2,7 +2,7 @@
 
 exports[`<LoginPage  /> should match snapshot 1`] = `
 <div
-  class="d-flex min-vh-100 justify-content-center col-2"
+  class="d-flex  min-vh-100 justify-content-center col-2"
 >
   <div
     class="min-vh-100"

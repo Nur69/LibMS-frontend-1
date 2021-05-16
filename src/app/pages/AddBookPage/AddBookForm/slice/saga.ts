@@ -1,4 +1,5 @@
 import { BOOK_ENDPOINTS } from 'app/configs/endpoints';
+import { getToken } from 'app/services/auth/tokens.service';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import objectToFormData from 'utils/form-data';
 import { request } from 'utils/request';
@@ -22,6 +23,9 @@ export function* addBookSaga(action) {
     const options = {
       method: 'POST',
       body: formData,
+      headers: {
+        Authorization: 'Bearer ' + getToken(),
+      },
     };
     yield call(request, BOOK_ENDPOINTS.addBook, options);
     yield put(

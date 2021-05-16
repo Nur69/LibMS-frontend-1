@@ -7,44 +7,22 @@
  */
 
 import * as React from 'react';
-import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { ERROR_ACTION, WAIT_FOR_ACTION } from 'redux-wait-for-action';
+import { createGlobalStyle } from 'styled-components';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
-import PrivateRoute from './guards/PrivateRoute';
-import PublicRoute from './guards/PublicRoute';
+import { AuthenticatedRoute, UnauthenticatedRoute } from './guards/Routes';
 import { AddBookPage } from './pages/AddBookPage/Loadable';
 import { AuthPage } from './pages/AuthPage/Loadable';
 import { DashboardPage } from './pages/DashboardPage/Loadable';
 import { HomePage } from './pages/HomePage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
-import { UserGreeting } from './pages/UserGreeting/Loadable';
-import { useUserProfileSlice } from './pages/UserGreeting/slice';
+import { UserProfilePage } from './pages/UserProfilePage/Loadable';
 
 export function App() {
   const { i18n } = useTranslation();
-  const dispatch = useDispatch();
-  const { actions } = useUserProfileSlice();
-  const [isDone, setIsDone] = useState(false);
-
-  function fetchData(dispatch) {
-    return dispatch({
-      type: actions.requestUserProfile.type,
-      [WAIT_FOR_ACTION]: actions.fetchProfileSuccess.type,
-      [ERROR_ACTION]: actions.fetchProfileFailed.type,
-    });
-  }
-
-  useEffect(() => {
-    fetchData(dispatch).then(result => {
-      console.log('result', result);
-      setIsDone(true);
-    });
-  }, [isDone]);
 
   return (
     <BrowserRouter>
@@ -65,19 +43,28 @@ export function App() {
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
         />
       </Helmet>
-      {isDone && (
-        <Switch>
-          <PublicRoute exact path="/" component={HomePage} />
-          <PublicRoute exact path="/auth" component={AuthPage} />
-          <PublicRoute exact path="/login" component={LoginPage} />
-          <PublicRoute exact path="/register" component={RegisterPage} />
+      <Switch>
+        <UnauthenticatedRoute exact path="/" component={HomePage} />
+        <UnauthenticatedRoute exact path="/auth" component={AuthPage} />
+        <UnauthenticatedRoute exact path="/login" component={LoginPage} />
+        <UnauthenticatedRoute exact path="/register" component={RegisterPage} />
 
-          <PrivateRoute exact path="/user" component={UserGreeting} />
-          <PrivateRoute exact path="/add-book" component={AddBookPage} />
-          <PrivateRoute exact path="/dashboard" component={DashboardPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-      )}
+        <AuthenticatedRoute exact path="/user" component={UserProfilePage} />
+        <AuthenticatedRoute exact path="/add-book" component={AddBookPage} />
+        <AuthenticatedRoute exact path="/dashboard" component={DashboardPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+      <GlobalStyle></GlobalStyle>
     </BrowserRouter>
   );
 }
+
+/* istanbul ignore next */
+export const GlobalStyle = createGlobalStyle`
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+  }
+`;

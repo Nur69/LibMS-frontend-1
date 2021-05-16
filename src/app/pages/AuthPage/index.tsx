@@ -3,14 +3,14 @@
  * AuthPage
  *
  */
+import { Footer } from 'app/components/Footer';
 import React, { memo } from 'react';
-import { Header } from '../../components/Header';
-import { Link } from 'react-router-dom';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { Footer } from 'app/components/Footer';
+import { Header } from '../../components/Header';
 
 interface Props {}
 

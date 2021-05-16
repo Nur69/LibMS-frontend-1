@@ -48,6 +48,11 @@ export async function request(
   url: string,
   options?: RequestInit,
 ): Promise<{} | { err: ResponseError }> {
+  options = {
+    ...options,
+    mode: 'cors',
+    credentials: 'include',
+  };
   const fetchResponse = await fetch(url, options);
   const response = checkStatus(fetchResponse);
   return parseJSON(response);
