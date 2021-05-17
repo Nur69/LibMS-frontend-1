@@ -19,7 +19,7 @@ export const ReservationsList = memo(() => {
   const reservationsSelected = useSelector(selectReservations);
 
   return (
-    <>
+    
       <Table className="w-75 " striped bordered hover>
         <thead>
           <tr
@@ -50,6 +50,5 @@ export const ReservationsList = memo(() => {
           ))}
         </tbody>
       </Table>
-    </>
   );
 });

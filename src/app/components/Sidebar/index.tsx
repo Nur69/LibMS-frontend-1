@@ -1,16 +1,10 @@
+import { dashboardFeatures } from 'app/configs/dashboard-features';
 import React, { memo } from 'react';
 import { Nav, Navbar, Row } from 'react-bootstrap';
 import * as IconName from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import LIBMSLOGO from './assets/LibMSLOGO.png';
 
-const navItemsTop = [
-  { name: 'Dashboard', link: '/dashboard', icon: IconName.FaChartBar },
-  { name: 'Library', link: '/books', icon: IconName.FaBook },
-  { name: 'Reservations', link: '/reservations', icon: IconName.FaRegListAlt },
-  { name: 'Templates', link: '/dashboard', icon: IconName.FaColumns },
-  { name: 'Categories', link: '/dashboard', icon: IconName.FaTag },
-];
 const navItemsBottom = [
   { name: 'Setting', link: '/dashboard', icon: IconName.FaCog },
   { name: 'Support', link: '/dashboard', icon: IconName.FaQuestionCircle },
@@ -27,7 +21,7 @@ export const Sidebar = memo(() => {
               <img src={imgSource} alt="" width={200} height={101} />
             </Row>
             <Row className="flex-column mt-5 mb-5">
-              {navItemsTop.map((navigate, i) => (
+              {dashboardFeatures.map((navigate, i) => (
                 <Nav.Link as={Link} to={navigate.link} key={i}>
                   <navigate.icon className="mr-2" />
                   {navigate.name}

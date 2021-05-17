@@ -3,6 +3,7 @@ import { Badge, Col, Dropdown, Form, Nav, Navbar, Row } from 'react-bootstrap';
 import * as IconName from 'react-icons/fa';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { BooksPage } from '../BooksPage/Loadable';
+import { ReservationsPage } from '../ReservationsPage';
 
 export function DashboardPage() {
   return (
@@ -55,11 +56,16 @@ export function DashboardPage() {
             <Col>
               <Switch>
                 <Route
-                  key={0}
                   path="/dashboard/books"
                   exact
                   render={() => <BooksPage />}
                 />
+                <Route
+                  path="/dashboard/reservations"
+                  exact
+                  render={() => <ReservationsPage />}
+                />
+                
               </Switch>
             </Col>
           </Row>
