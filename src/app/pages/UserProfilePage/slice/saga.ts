@@ -5,7 +5,7 @@ import { request } from 'utils/request';
 import { userProfileActions as actions } from '.';
 import { User } from './types';
 
-function* fetchUserProfile(accessToken) {
+function* fetchUserProfile() {
   try {
     const accessToken = yield call(getToken);
     const options: RequestInit = {
