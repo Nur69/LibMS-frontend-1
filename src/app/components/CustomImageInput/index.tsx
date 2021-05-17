@@ -1,8 +1,15 @@
 import { RequiredFormLabel } from 'app/components/RequiredFormLabel';
 import { SUPPORTED_IMAGE_FORMATS } from 'app/services/validation/schemes/AddBook';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Image } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
+interface ImageProps {
+  imagePreview: boolean;
+  imagePreviewUrl: string;
+  id: string;
+  width: string;
+  isSubmitted: boolean;
+}
 interface IProps {
   required?;
   label: string;
@@ -14,13 +21,25 @@ interface IProps {
   };
 }
 
-const ConnectForm = ({ children }) => {
-  const methods = useFormContext();
-
-  return children({ ...methods });
-};
+export function ShowPreloadImage(props: ImageProps) {
+  if (props.imagePreview) {
+    return (
+      <Image
+        src={props.imagePreviewUrl}
+        style={{ width: props.width ? props.width : '100%' }}
+        id={props.id}
+        aria-label={props.id}
+        className="rounded mb-2"
+        thumbnail
+      />
+    );
+  }
+  return <></>;
+}
 
 export function CustomImageInput(props: IProps) {
+  const { formState, register } = useFormContext();
+
   const initialState = {
     file: {} as File,
     fileName: 'Select an image',
@@ -29,7 +48,11 @@ export function CustomImageInput(props: IProps) {
   };
 
   const [state, setState] = React.useState(initialState);
-  const { fileName } = state;
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) setState(initialState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formState.isSubmitSuccessful]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -53,50 +76,33 @@ export function CustomImageInput(props: IProps) {
     }
   };
 
-  const showPreloadImage = () => {
-    const { imagePreview, imagePreviewUrl } = state;
-    if (imagePreview) {
-      return (
-        <Image
-          src={imagePreviewUrl}
-          style={{ width: props.preview.width ? props.preview.width : '100%' }}
-          id={props.preview.id}
-          aria-label={props.preview.id}
-          className="rounded mb-2"
-          thumbnail
-        />
-      );
-    }
-  };
-
   return (
-    <ConnectForm>
-      {methods => (
-        <Form.Group>
-          {props.required ? (
-            <RequiredFormLabel htmlFor={props.id}>
-              {props.label}
-            </RequiredFormLabel>
-          ) : (
-            <Form.Label htmlFor={props.id}>{props.label}</Form.Label>
-          )}
-          <br></br>
-          {showPreloadImage()}
-          <Form.File id={props.id} custom>
-            <Form.File.Input
-              type="file"
-              accept="image/x-png,image/jpeg"
-              {...methods.register(props.id)}
-              onChange={handleImageChange}
-              isInvalid={!!methods.formState.errors[props.id]}
-            />
-            <Form.File.Label data-browse="Upload">{fileName}</Form.File.Label>
-            <Form.Control.Feedback type="invalid">
-              {methods.formState.errors[props.id]?.message}
-            </Form.Control.Feedback>
-          </Form.File>
-        </Form.Group>
+    <Form.Group>
+      {props.required ? (
+        <RequiredFormLabel htmlFor={props.id}>{props.label}</RequiredFormLabel>
+      ) : (
+        <Form.Label htmlFor={props.id}>{props.label}</Form.Label>
       )}
-    </ConnectForm>
+      <br></br>
+      <ShowPreloadImage
+        imagePreview={state.imagePreview}
+        imagePreviewUrl={state.imagePreviewUrl}
+        isSubmitted={formState.isSubmitted}
+        {...props.preview}
+      />
+      <Form.File id={props.id} custom>
+        <Form.File.Input
+          type="file"
+          accept="image/x-png,image/jpeg"
+          {...register(props.id)}
+          onChange={handleImageChange}
+          isInvalid={!!formState.errors[props.id]}
+        />
+        <Form.File.Label data-browse="Upload">{state.fileName}</Form.File.Label>
+        <Form.Control.Feedback type="invalid">
+          {formState.errors[props.id]?.message}
+        </Form.Control.Feedback>
+      </Form.File>
+    </Form.Group>
   );
 }

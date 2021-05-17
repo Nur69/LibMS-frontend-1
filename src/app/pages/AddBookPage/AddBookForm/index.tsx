@@ -8,7 +8,7 @@ import { useYupValidationResolver } from 'app/services/validation/resolvers/Reso
 import { ValidationSchema } from 'app/services/validation/schemes/AddBook';
 import React, { useState } from 'react';
 import { Alert, Button, Col, Form, Row } from 'react-bootstrap';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, KeepStateOptions, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthorsAutoComplete } from '../components/AuthorsAutoComplete';
 import { CustomInputField } from '../components/CustomInputField';
@@ -34,6 +34,15 @@ export function AddBook(props: IProps) {
     resolver,
   });
 
+  const keepStateOptions: KeepStateOptions = {
+    keepErrors: true,
+    keepDirty: true,
+    keepIsSubmitted: false,
+    keepTouched: false,
+    keepIsValid: false,
+    keepSubmitCount: false,
+  };
+
   const onSubmit = (data: AddBookForm, event): void => {
     let publicationDate = new Date(data.publicationDate).toISOString();
     dispatch(
@@ -44,7 +53,7 @@ export function AddBook(props: IProps) {
       }),
     );
     setShowAlert(true);
-    event.target.reset();
+    methods.reset(keepStateOptions);
   };
 
   function AlertDismissible() {

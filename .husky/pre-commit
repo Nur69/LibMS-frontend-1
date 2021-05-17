@@ -3,3 +3,4 @@
 
 yarn run checkTs
 yarn run lint-staged
+yarn run test -u
