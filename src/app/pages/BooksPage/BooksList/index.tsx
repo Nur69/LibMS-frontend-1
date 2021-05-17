@@ -19,34 +19,32 @@ export const BooksList = memo(() => {
   const booksSelected = useSelector(selectState);
 
   return (
-    <>
-      <Table className="w-75 " striped bordered hover>
-        <thead>
-          <tr
-            style={{
-              backgroundColor: '#707070',
-              color: '#E5E5E5',
-              fontFamily: 'Lato',
-            }}
-          >
-            {features.map(feature => (
-              <th>{feature}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {booksSelected.books.map(book => (
-            <tr>
-              <td>{book.title}</td>
-              <td>{book.isbn}</td>
-              <td>{book.authors.map(author => author.fullName).join(', ')}</td>
-              <td>{book.publisher}</td>
-              <td>{book.pageCount}</td>
-              <td>{book.publishedDate.substring(0, 10)}</td>
-            </tr>
+    <Table className="w-75 " striped bordered hover>
+      <thead>
+        <tr
+          style={{
+            backgroundColor: '#707070',
+            color: '#E5E5E5',
+            fontFamily: 'Lato',
+          }}
+        >
+          {features.map(feature => (
+            <th>{feature}</th>
           ))}
-        </tbody>
-      </Table>
-    </>
+        </tr>
+      </thead>
+      <tbody>
+        {booksSelected.books.map(book => (
+          <tr>
+            <td>{book.title}</td>
+            <td>{book.isbn}</td>
+            <td>{book.authors.map(author => author.fullName).join(', ')}</td>
+            <td>{book.publisher}</td>
+            <td>{book.pageCount}</td>
+            <td>{book.publishedDate.substring(0, 10)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
   );
 });
