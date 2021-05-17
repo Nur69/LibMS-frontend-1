@@ -7,13 +7,12 @@ import { User, UserProfileState } from './types';
 export const initialState: UserProfileState = {
   id: '',
   email: '',
-  fullName: '',
+  firstName: '',
+  lastName: '',
   universityID: '',
-  isAuthenticated: false,
   isFetching: false,
   isSuccess: false,
   isError: false,
-  isDone: false,
   errorMessage: '',
 };
 
@@ -29,14 +28,13 @@ const slice = createSlice({
       state.isSuccess = true;
       state.id = action.payload.id;
       state.email = action.payload.email;
-      state.isAuthenticated = true;
-      state.isDone = true;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
     },
     fetchProfileFailed(state, action: PayloadAction<{ message: string }>) {
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = action.payload.message;
-      state.isDone = true;
     },
   },
 });

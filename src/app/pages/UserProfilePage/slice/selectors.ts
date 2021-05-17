@@ -11,6 +11,16 @@ export const selectEmail = createSelector(
   userProfileState => userProfileState.email,
 );
 
+export const selectFirstName = createSelector(
+  [selectSlice],
+  userProfileState => userProfileState.firstName,
+);
+
+export const selectLastName = createSelector(
+  [selectSlice],
+  userProfileState => userProfileState.lastName,
+);
+
 export const selectIsFetching = createSelector(
   [selectSlice],
   userProfileState => userProfileState.isFetching,

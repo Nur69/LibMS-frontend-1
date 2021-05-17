@@ -10,13 +10,19 @@ import { Button, Container, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useUserProfileSlice } from './slice';
-import { selectEmail, selectIsFetching } from './slice/selectors';
+import {
+  selectFirstName,
+  selectIsFetching,
+  selectLastName,
+} from './slice/selectors';
 interface Props {}
 
 export function UserProfilePage(props: Props) {
   const { actions } = useUserProfileSlice();
 
-  const email = useSelector(selectEmail);
+  const firstName = useSelector(selectFirstName);
+  const lastName = useSelector(selectLastName);
+
   const isFetching = useSelector(selectIsFetching);
 
   const dispatch = useDispatch();
@@ -39,7 +45,11 @@ export function UserProfilePage(props: Props) {
           style={{ fontSize: '2em' }}
         >
           Welcome{' '}
-          {isFetching ? <Spinner animation="grow" /> : email.split('@')[0]}
+          {isFetching ? (
+            <Spinner animation="grow" />
+          ) : (
+            firstName + ' ' + lastName
+          )}
         </div>
         <Link to="/dashboard">
           <Button> Continue to Dashboard</Button>
