@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetchReservationsSlice } from './slice';
@@ -15,8 +15,16 @@ const features = [
 export const ReservationsList = memo(() => {
   const { actions } = useFetchReservationsSlice();
   const dispatch = useDispatch();
-  dispatch(actions.requestFetchReservations());
   const reservationsSelected = useSelector(selectReservations);
+
+  const useEffectOnMount = (effect: React.EffectCallback) => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(effect, []);
+  };
+
+  useEffectOnMount(() => {
+    dispatch(actions.requestFetchReservations());
+  });
 
   return (
     <Table className="w-75 " striped bordered hover>

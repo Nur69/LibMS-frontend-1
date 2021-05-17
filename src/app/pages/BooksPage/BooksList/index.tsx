@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetchBooksSlice } from './slice';
@@ -15,13 +15,22 @@ const features = [
 export const BooksList = memo(() => {
   const { actions } = useFetchBooksSlice();
   const dispatch = useDispatch();
-  dispatch(actions.requestFetchBooks());
   const booksSelected = useSelector(selectState);
+
+  const useEffectOnMount = (effect: React.EffectCallback) => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(effect, []);
+  };
+
+  useEffectOnMount(() => {
+    dispatch(actions.requestFetchBooks());
+  });
 
   return (
     <Table className="w-75 " striped bordered hover>
       <thead>
         <tr
+          key={0}
           style={{
             backgroundColor: '#707070',
             color: '#E5E5E5',
@@ -34,8 +43,8 @@ export const BooksList = memo(() => {
         </tr>
       </thead>
       <tbody>
-        {booksSelected.books.map(book => (
-          <tr>
+        {booksSelected.books.map((book, i) => (
+          <tr key={i + 1}>
             <td>{book.title}</td>
             <td>{book.isbn}</td>
             <td>{book.authors.map(author => author.fullName).join(', ')}</td>
