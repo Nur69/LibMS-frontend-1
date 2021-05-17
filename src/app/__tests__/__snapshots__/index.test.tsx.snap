@@ -74,6 +74,11 @@ exports[`<App /> should render and match the snapshot 1`] = `
       exact={true}
       path="/books/:id"
     />
+    <AuthenticatedRoute
+      component={[Function]}
+      exact={true}
+      path="/reservations"
+    />
     <Route
       component={[Function]}
     />

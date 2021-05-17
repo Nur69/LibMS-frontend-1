@@ -22,6 +22,7 @@ import { HomePage } from './pages/HomePage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
 import { UserProfilePage } from './pages/UserProfilePage/Loadable';
+import { ReservationsPage } from './pages/ReservationsPage';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -56,6 +57,11 @@ export function App() {
         <AuthenticatedRoute exact path="/dashboard" component={DashboardPage} />
         <AuthenticatedRoute exact path="/books" component={BooksPage} />
         <AuthenticatedRoute exact path="/books/:id" component={BookDescPage} />
+        <AuthenticatedRoute
+          exact
+          path="/reservations"
+          component={ReservationsPage}
+        />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle></GlobalStyle>

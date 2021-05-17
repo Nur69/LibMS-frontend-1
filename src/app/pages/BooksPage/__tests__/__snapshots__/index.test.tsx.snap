@@ -71,7 +71,7 @@ exports[`<BooksPage  /> should match snapshot 1`] = `
             </a>
             <a
               class="nav-link"
-              href="/dashboard"
+              href="/reservations"
             >
               <svg
                 class="mr-2"
