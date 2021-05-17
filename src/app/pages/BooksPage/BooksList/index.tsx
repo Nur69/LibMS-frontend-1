@@ -1,6 +1,7 @@
 import { memo, useEffect } from 'react';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useFetchBooksSlice } from './slice';
 import { selectState } from './slice/selectors';
 
@@ -11,6 +12,7 @@ const features = [
   'Publisher',
   'PageCount',
   'Published Date',
+  'Actions',
 ];
 export const BooksList = memo(() => {
   const { actions } = useFetchBooksSlice();
@@ -51,6 +53,11 @@ export const BooksList = memo(() => {
             <td>{book.publisher}</td>
             <td>{book.pageCount}</td>
             <td>{book.publishedDate.substring(0, 10)}</td>
+            <td>
+              <Link to={`/dashboard/books/${book.isbn}`}>
+                <Button>Details</Button>
+              </Link>
+            </td>
           </tr>
         ))}
       </tbody>

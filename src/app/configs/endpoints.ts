@@ -20,3 +20,7 @@ export const USER_ENDPOINTS = {
 export const RESERVATION_ENDPOINTS = {
   reservations: `${BASE_URL}/${SUFFIX}/reservation/reservations`,
 };
+
+export const ASSETS_ENDPOINTS = {
+  images: `${BASE_URL}/upload/images`,
+};

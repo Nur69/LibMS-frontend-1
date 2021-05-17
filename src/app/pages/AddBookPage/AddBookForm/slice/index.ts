@@ -11,7 +11,9 @@ export const initialState: AddBookState = {
   originalTitle: '',
   authors: [],
   publishedDate: '',
-  image: '',
+  image: {
+    name: '',
+  },
   pageCount: 0,
   overview: '',
   publisher: '',

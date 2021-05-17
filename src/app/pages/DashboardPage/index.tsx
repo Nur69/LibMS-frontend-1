@@ -2,6 +2,7 @@ import { Sidebar } from 'app/components/Sidebar';
 import { Badge, Col, Dropdown, Form, Nav, Navbar, Row } from 'react-bootstrap';
 import * as IconName from 'react-icons/fa';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BookDescPage } from '../BookDescPage';
 import { BooksPage } from '../BooksPage/Loadable';
 import { ReservationsPage } from '../ReservationsPage';
 
@@ -64,6 +65,11 @@ export function DashboardPage() {
                   path="/dashboard/reservations"
                   exact
                   render={() => <ReservationsPage />}
+                />
+                <Route
+                  exact
+                  path="/dashboard/books/:id"
+                  render={() => <BookDescPage />}
                 />
               </Switch>
             </Col>
