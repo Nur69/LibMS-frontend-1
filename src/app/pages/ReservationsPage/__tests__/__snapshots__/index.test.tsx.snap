@@ -1,41 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ReservationsPage  /> should match snapshot 1`] = `
-<div
-  class="h-25 align-items-center ml-4 row"
+<table
+  class="w-75  table table-striped table-bordered table-hover"
 >
-  <div
-    class="col"
-  >
-    <table
-      class="w-75  table table-striped table-bordered table-hover"
+  <thead>
+    <tr
+      style="background-color: rgb(112, 112, 112); color: rgb(229, 229, 229); font-family: Lato;"
     >
-      <thead>
-        <tr
-          style="background-color: rgb(112, 112, 112); color: rgb(229, 229, 229); font-family: Lato;"
-        >
-          <th>
-            Book
-          </th>
-          <th>
-            ISBN
-          </th>
-          <th>
-            Email
-          </th>
-          <th>
-            University ID
-          </th>
-          <th>
-            Date of Reservation
-          </th>
-          <th>
-            Status
-          </th>
-        </tr>
-      </thead>
-      <tbody />
-    </table>
-  </div>
-</div>
+      <th>
+        Book
+      </th>
+      <th>
+        ISBN
+      </th>
+      <th>
+        Email
+      </th>
+      <th>
+        University ID
+      </th>
+      <th>
+        Date of Reservation
+      </th>
+      <th>
+        Status
+      </th>
+    </tr>
+  </thead>
+  <tbody />
+</table>
 `;

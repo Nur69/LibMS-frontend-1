@@ -1,41 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<BooksPage  /> should match snapshot 1`] = `
-<div
-  class="h-50 align-items-center ml-4 row"
+<table
+  class="w-75  table table-striped table-bordered table-hover"
 >
-  <div
-    class="col"
-  >
-    <table
-      class="w-75  table table-striped table-bordered table-hover"
+  <thead>
+    <tr
+      style="background-color: rgb(112, 112, 112); color: rgb(229, 229, 229); font-family: Lato;"
     >
-      <thead>
-        <tr
-          style="background-color: rgb(112, 112, 112); color: rgb(229, 229, 229); font-family: Lato;"
-        >
-          <th>
-            Title
-          </th>
-          <th>
-            ISBN
-          </th>
-          <th>
-            Authors
-          </th>
-          <th>
-            Publisher
-          </th>
-          <th>
-            PageCount
-          </th>
-          <th>
-            Published Date
-          </th>
-        </tr>
-      </thead>
-      <tbody />
-    </table>
-  </div>
-</div>
+      <th>
+        Title
+      </th>
+      <th>
+        ISBN
+      </th>
+      <th>
+        Authors
+      </th>
+      <th>
+        Publisher
+      </th>
+      <th>
+        PageCount
+      </th>
+      <th>
+        Published Date
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody />
+</table>
 `;
