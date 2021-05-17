@@ -50,6 +50,15 @@ export function AuthorsAutoComplete(props: IProps) {
 
   const authorSelected = (list: Author[]) => {
     // this will populate that field array (i.e. 'authors' field)
+
+    // If we have already added the author, exit
+    if (
+      fields.filter(a => a[Object.keys(a)[1]] === list[0].fullName).length > 0
+    ) {
+      ref.current.clear();
+      return;
+    }
+
     append({
       id: list[0].id,
       fullName: list[0].fullName,
@@ -63,6 +72,11 @@ export function AuthorsAutoComplete(props: IProps) {
     const key = (event as KeyboardEvent).key;
     const value = (event.target as HTMLInputElement).value;
     if (key === 'Enter') {
+      // If we have already added the author, exit
+      if (fields.filter(a => a[Object.keys(a)[1]] === value).length > 0) {
+        ref.current.clear();
+        return;
+      }
       NEW_AUTHOR_ID += 1;
       append({
         id: NEW_AUTHOR_ID,
