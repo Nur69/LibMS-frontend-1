@@ -1,18 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<BooksPage  /> should match snapshot 1`] = `
+exports[`<ReservationsPage  /> should match snapshot 1`] = `
 <div
-  class="h-50 align-items-center ml-4 row"
+  class="row"
 >
   <div
-    class="col"
+    class="d-flex min-vh-100 justify-content-center col-2"
   >
-    <table
-      class="w-75  table table-striped table-bordered table-hover"
+    <div
+      class="min-vh-100"
     >
-      <thead>
-        <tr
-          style="background-color: rgb(112, 112, 112); color: rgb(229, 229, 229); font-family: Lato;"
+      <nav
+        class="navbar navbar-expand navbar-light"
+      >
+        <div
+          class="flex-column navbar-nav"
         >
           <div
             class="mb-5 row"
@@ -252,22 +254,7 @@ exports[`<BooksPage  /> should match snapshot 1`] = `
       </nav>
     </div>
     <div
-      class="align-items-center row"
-    >
-      <form
-        class=""
-      >
-        <button
-          class="w-100 ml-5 btn btn-primary"
-          type="button"
-        >
-          Remind
-        </button>
-         
-      </form>
-    </div>
-    <div
-      class="h-50 align-items-center ml-4 row"
+      class="h-25 align-items-center ml-4 row"
     >
       <table
         class="w-75  table table-striped table-bordered table-hover"
@@ -277,22 +264,22 @@ exports[`<BooksPage  /> should match snapshot 1`] = `
             style="background-color: rgb(112, 112, 112); color: rgb(229, 229, 229); font-family: Lato;"
           >
             <th>
-              Title
+              Book
             </th>
             <th>
               ISBN
             </th>
             <th>
-              Authors
+              Email
             </th>
             <th>
-              Publisher
+              University ID
             </th>
             <th>
-              PageCount
+              Date of Reservation
             </th>
             <th>
-              Published Date
+              Status
             </th>
           </tr>
         </thead>

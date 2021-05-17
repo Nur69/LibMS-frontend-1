@@ -16,3 +16,7 @@ export const BOOK_ENDPOINTS = {
 export const USER_ENDPOINTS = {
   profile: `${BASE_URL}/profile`,
 };
+
+export const RESERVATION_ENDPOINTS = {
+  reservations: `${BASE_URL}/${SUFFIX}/reservation/reservations`,
+};
