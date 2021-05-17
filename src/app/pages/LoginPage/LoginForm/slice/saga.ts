@@ -49,7 +49,6 @@ function* loginUserSaga(action) {
     };
 
     const { accessToken } = yield call(request, AUTH_ENDPOINTS.login, options);
-    console.log(accessToken);
     yield put(
       actions.loginSuccess({
         email: action.payload.email,

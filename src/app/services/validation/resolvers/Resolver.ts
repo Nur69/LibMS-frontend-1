@@ -18,16 +18,18 @@ export const useYupValidationResolver = (
       } catch (errors) {
         return {
           values: {},
-          errors: errors.inner.reduce(
-            (allErrors: any, currentError: any) => ({
-              ...allErrors,
-              [currentError.path]: {
-                type: currentError.type ?? 'validation',
-                message: currentError.message,
-              },
-            }),
-            {},
-          ),
+          errors:
+            errors.inner &&
+            errors.inner.reduce(
+              (allErrors: any, currentError: any) => ({
+                ...allErrors,
+                [currentError.path]: {
+                  type: currentError.type ?? 'validation',
+                  message: currentError.message,
+                },
+              }),
+              {},
+            ),
         };
       }
     },

@@ -15,6 +15,7 @@ interface IProps {
   htmlFor: string;
   id: string;
   ariaLabel: string;
+  placeholder?: string;
 }
 
 export function CustomInputField(props: IProps) {
@@ -35,6 +36,7 @@ export function CustomInputField(props: IProps) {
             aria-label={props.ariaLabel}
             {...methods.register(props.id)}
             isInvalid={!!methods.formState.errors[props.id]}
+            placeholder={props.placeholder}
           />
           <Form.Control.Feedback type="invalid">
             {methods.formState.errors[props.id]?.message}
