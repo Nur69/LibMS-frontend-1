@@ -9,11 +9,12 @@ import { addBookAuthorsActions as actions } from '.';
 
 export function* fetchAuthorsSaga(action) {
   try {
+    const accessToken = yield call(getToken);
     const authorsList = yield call(request, BOOK_ENDPOINTS.authors, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + getToken(),
+        Authorization: 'Bearer ' + accessToken,
       },
     });
 

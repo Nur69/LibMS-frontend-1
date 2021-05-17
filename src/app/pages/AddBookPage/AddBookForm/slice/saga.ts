@@ -20,11 +20,11 @@ export function* addBookSaga(action) {
       image: action.payload.image,
     };
     const formData = objectToFormData(book);
+    const accessToken = yield call(getToken);
     const options = {
       method: 'POST',
       headers: {
-        Accept: '*/*',
-        Authorization: 'Bearer ' + getToken(),
+        Authorization: 'Bearer ' + accessToken,
       },
       body: formData,
     };

@@ -6,11 +6,12 @@ import { fetchBooksActions as actions, fetchBooksActions } from '.';
 
 export function* fetchBooksSaga(action) {
   try {
+    const accessToken = yield call(getToken);
     const options = {
       method: 'GET',
-      Headers: {
+      headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + getToken(),
+        Authorization: 'Bearer ' + accessToken,
       },
     };
     const books = yield call(request, BOOK_ENDPOINTS.books, options);

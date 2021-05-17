@@ -4,10 +4,9 @@ import {
   getToken,
   setToken,
 } from 'app/services/auth/tokens.service';
-import { call, cancel, cancelled, put, take } from 'redux-saga/effects';
+import { call, cancelled, put, takeLatest } from 'redux-saga/effects';
 import { request } from 'utils/request';
-import { userActions } from '.';
-import { useLogoutActions } from '../../../AuthPage/slice/index';
+import { userActions as actions } from '.';
 
 export function* refreshTokenFlow(refreshToken) {
   try {
@@ -25,44 +24,42 @@ export function* refreshTokenFlow(refreshToken) {
     );
     yield call(setToken, accessToken);
 
-    yield put(userActions.refreshSuccess());
+    yield put(actions.refreshSuccess());
     return accessToken;
   } catch (e) {
     yield call(clearToken);
-    yield put(userActions.refreshFailed({ message: 'Session dropped' }));
+    yield put(actions.refreshFailed({ message: 'Session dropped' }));
     return null;
   }
 }
 
-function* loginUserSaga(email, password) {
+function* loginUserSaga(action) {
   try {
+    const token = yield call(getToken);
     const options: RequestInit = {
       method: 'POST',
       body: JSON.stringify({
-        email: email,
-        password: password,
+        email: action.payload.email,
+        password: action.payload.password,
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + getToken(),
+        Authorization: 'Bearer ' + token,
       },
     };
 
     const { accessToken } = yield call(request, AUTH_ENDPOINTS.login, options);
     console.log(accessToken);
     yield put(
-      userActions.loginSuccess({
-        email: email,
-        accessToken: accessToken,
+      actions.loginSuccess({
+        email: action.payload.email,
       }),
     );
 
     yield call(setToken, accessToken.token);
-
-    return accessToken;
   } catch (error) {
     yield put(
-      userActions.loginFailed({
+      actions.loginFailed({
         message: 'Login Failed: Please check your credentials',
       }),
     );
@@ -74,21 +71,5 @@ function* loginUserSaga(email, password) {
 }
 
 export function* loginFlow() {
-  while (true) {
-    const loginAction = yield take(userActions.requestLogin.type);
-    // fork return a Task object
-    const loginTask = yield call(
-      loginUserSaga,
-      loginAction.payload.email,
-      loginAction.payload.password,
-    );
-    const action = yield take([
-      useLogoutActions.logoutSuccess.type,
-      userActions.loginFailed.type,
-    ]);
-    if (action.type === useLogoutActions.logoutSuccess.type) {
-      yield cancel(loginTask);
-    }
-    yield call(clearToken);
-  }
+  yield takeLatest(actions.requestLogin.type, loginUserSaga);
 }

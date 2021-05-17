@@ -39,7 +39,7 @@ export const BooksList = memo(() => {
             <tr>
               <td>{book.title}</td>
               <td>{book.isbn}</td>
-              <td>{book.authors.map(author => author.fullName + ', ')}</td>
+              <td>{book.authors.map(author => author.fullName).join(', ')}</td>
               <td>{book.publisher}</td>
               <td>{book.pageCount}</td>
               <td>{book.publishedDate.substring(0, 10)}</td>

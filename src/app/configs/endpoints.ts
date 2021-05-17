@@ -9,7 +9,7 @@ export const AUTH_ENDPOINTS = {
 
 export const BOOK_ENDPOINTS = {
   addBook: `${BASE_URL}/${SUFFIX}/book`,
-  books: `http://localhost:3000/api/books`,
+  books: `${BASE_URL}/${SUFFIX}/books`,
   authors: `${BASE_URL}/${SUFFIX}/book/authors`,
 };
 
