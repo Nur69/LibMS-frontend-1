@@ -67,7 +67,7 @@ export function DashboardPage() {
               </Navbar>
             </Row>
             {/** Sidebar elements will be rendered here */}
-            <Row className="justify-content-center h-75">
+            <Row>
               <Switch>
                 <Route
                   path="/dashboard/books"

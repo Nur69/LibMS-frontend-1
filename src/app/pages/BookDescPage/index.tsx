@@ -19,7 +19,7 @@ export function BookDescPage(props: Props) {
 
   const selectedBook = useSelector(selectBookByISBN(id))[0];
   return (
-    <Row className="justify-content-center">
+    <Row className="w-100">
       <Col md="auto">
         <Image
           height={346}

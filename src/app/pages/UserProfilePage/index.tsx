@@ -6,8 +6,9 @@
 import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
 import * as React from 'react';
-import { Container, Spinner } from 'react-bootstrap';
+import { Button, Container, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useUserProfileSlice } from './slice';
 import { selectEmail, selectIsFetching } from './slice/selectors';
 interface Props {}
@@ -40,6 +41,9 @@ export function UserProfilePage(props: Props) {
           Welcome{' '}
           {isFetching ? <Spinner animation="grow" /> : email.split('@')[0]}
         </div>
+        <Link to="/dashboard">
+          <Button> Continue to Dashboard</Button>
+        </Link>
       </Container>
       <Footer />
     </div>
