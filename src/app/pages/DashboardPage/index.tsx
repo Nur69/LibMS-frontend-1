@@ -65,7 +65,6 @@ export function DashboardPage() {
                   exact
                   render={() => <ReservationsPage />}
                 />
-                
               </Switch>
             </Col>
           </Row>
