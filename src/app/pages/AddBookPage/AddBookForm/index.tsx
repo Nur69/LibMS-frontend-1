@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { Alert, Button, Col, Form, Row } from 'react-bootstrap';
 import { FormProvider, KeepStateOptions, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AuthorsAutoComplete } from '../components/AuthorsAutoComplete';
 import { CustomInputField } from '../components/CustomInputField';
 import { AddBookForm } from './AddBookForm';
@@ -170,6 +171,16 @@ export function AddBook(props: IProps) {
             >
               Add Book
             </Button>
+            <Link to="/dashboard/books">
+              <Button
+                className="float-right mr-2"
+                type="submit"
+                data-testid="addBook-button"
+              >
+                {' '}
+                Check Inventory
+              </Button>
+            </Link>
           </Col>
         </Row>
       </Form>

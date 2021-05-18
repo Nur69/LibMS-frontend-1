@@ -19,7 +19,7 @@ export function BookDescPage(props: Props) {
 
   const selectedBook = useSelector(selectBookByISBN(id))[0];
   return (
-    <Row className="w-100">
+    <Row className="w-100 ml-4">
       <Col md="auto">
         <Image
           height={346}

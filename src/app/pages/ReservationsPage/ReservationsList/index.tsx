@@ -7,6 +7,7 @@ import { selectReservations } from './slice/selectors';
 const features = [
   'Book',
   'ISBN',
+  'Number Of Copies',
   'Email',
   'University ID',
   'Date of Reservation',
@@ -16,7 +17,6 @@ export const ReservationsList = memo(() => {
   const { actions } = useFetchReservationsSlice();
   const dispatch = useDispatch();
   const reservationsSelected = useSelector(selectReservations);
-
   const useEffectOnMount = (effect: React.EffectCallback) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(effect, []);
@@ -27,7 +27,7 @@ export const ReservationsList = memo(() => {
   });
 
   return (
-    <Table className="w-75 " striped bordered hover>
+    <Table className="w-75" striped bordered hover>
       <thead>
         <tr
           style={{
@@ -46,6 +46,7 @@ export const ReservationsList = memo(() => {
           <tr>
             <td>{reservation.book.title}</td>
             <td>{reservation.book.isbn}</td>
+            <td>{reservation.book.copiesNbr}</td>
             <td>{reservation.user.email}</td>
             <td>{reservation.user.universityID}</td>
             <td>{reservation.reservationDate.substring(0, 10)}</td>

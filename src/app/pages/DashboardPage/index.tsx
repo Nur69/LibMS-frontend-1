@@ -46,7 +46,7 @@ export function DashboardPage() {
                       <Dropdown.Item>Profile</Dropdown.Item>
                       <Dropdown.Item>Security</Dropdown.Item>
                       <Dropdown.Divider />
-                      <Dropdown.Item>Security</Dropdown.Item>
+                      <Dropdown.Item>Log Out</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                   <Dropdown className="ml-5 ">

@@ -39,7 +39,7 @@ export function UserProfilePage(props: Props) {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header title="My SMU-Library Account" navItems={[]} account={false} />
-      <Container className="text-left wrapper flex-grow-1">
+      <Container className="text-center wrapper flex-grow-1 mt-5">
         <div
           className="d-block mt-5 mb-5 font-weight-light"
           style={{ fontSize: '2em' }}
@@ -51,9 +51,14 @@ export function UserProfilePage(props: Props) {
             firstName + ' ' + lastName
           )}
         </div>
-        <Link to="/dashboard">
-          <Button> Continue to Dashboard</Button>
-        </Link>
+        <div>
+          <Link to="/dashboard/books">
+            <Button className="mr-5"> Continue to Dashboard</Button>
+          </Link>
+          <Link to="add-book">
+            <Button> Add Book to inventory</Button>
+          </Link>
+        </div>
       </Container>
       <Footer />
     </div>

@@ -55,7 +55,7 @@ export const BooksList = memo(() => {
             <td>{book.publishedDate.substring(0, 10)}</td>
             <td>
               <Link to={`/dashboard/books/${book.isbn}`}>
-                <Button>Details</Button>
+                <Button className="btn-primary btn-sm">Details</Button>
               </Link>
             </td>
           </tr>
