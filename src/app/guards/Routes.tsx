@@ -1,17 +1,15 @@
 import { LoadingSpinner } from 'app/components/LoadingPage';
 import { USER_ENDPOINTS } from 'app/configs/endpoints';
 import { getToken } from 'app/services/auth/tokens.service';
+import { AxiosRequestConfig } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { request } from 'utils/request';
+import request from 'utils/request';
 
 const getProfile = async () => {
-  const options: RequestInit = {
+  request.defaults.headers.common['Authorization'] = `Bearer ${getToken()}`;
+  const options: AxiosRequestConfig = {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + getToken(),
-    },
   };
   return request(USER_ENDPOINTS.profile, options);
 };
@@ -27,6 +25,7 @@ const isAuthenticated = async () => {
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+
   useEffect(() => {
     isAuthenticated().then(bool =>
       setTimeout(() => setAuthenticated(bool), 200),

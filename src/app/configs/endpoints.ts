@@ -1,26 +1,25 @@
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
-const SUFFIX = 'api';
+const API_PREFIX = 'api';
 
 export const AUTH_ENDPOINTS = {
-  login: `${BASE_URL}/${SUFFIX}/user/auth`,
-  refresh: `${BASE_URL}/${SUFFIX}/user/refresh`,
-  register: `${BASE_URL}/${SUFFIX}/user`,
+  login: `${API_PREFIX}/user/auth`,
+  refresh: `${API_PREFIX}/user/refresh`,
+  register: `${API_PREFIX}/user`,
 };
 
 export const BOOK_ENDPOINTS = {
-  addBook: `${BASE_URL}/${SUFFIX}/book`,
-  books: `${BASE_URL}/${SUFFIX}/books`,
-  authors: `${BASE_URL}/${SUFFIX}/book/authors`,
+  addBook: `${API_PREFIX}/book`,
+  books: `${API_PREFIX}/books`,
+  authors: `${API_PREFIX}/book/authors`,
 };
 
 export const USER_ENDPOINTS = {
-  profile: `${BASE_URL}/${SUFFIX}/user/@me`,
+  profile: `${API_PREFIX}/user/@me`,
 };
 
 export const RESERVATION_ENDPOINTS = {
-  reservations: `${BASE_URL}/${SUFFIX}/reservation/reservations`,
+  reservations: `${API_PREFIX}/reservation/reservations`,
 };
 
 export const ASSETS_ENDPOINTS = {
-  images: `${BASE_URL}/upload/images`,
+  images: `${process.env.REACT_APP_BACKEND_URL}/upload/images`,
 };

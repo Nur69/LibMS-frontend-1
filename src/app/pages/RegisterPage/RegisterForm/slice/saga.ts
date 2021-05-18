@@ -1,6 +1,7 @@
 import { AUTH_ENDPOINTS } from 'app/configs/endpoints';
+import { AxiosRequestConfig } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { request } from 'utils/request';
+import request from 'utils/request';
 import { useRegistrationActions as actions, useRegistrationActions } from '.';
 
 // function* doSomething() {}
@@ -8,19 +9,17 @@ import { useRegistrationActions as actions, useRegistrationActions } from '.';
 export function* registerUserSaga(action) {
   try {
     // Saga's way of dispatching actions
-    yield call(request, AUTH_ENDPOINTS.register, {
+    const options: AxiosRequestConfig = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+      data: {
         email: action.payload.email,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         universityID: action.payload.universityID,
         password: action.payload.password,
-      }),
-    });
+      },
+    };
+    yield call(request, AUTH_ENDPOINTS.register, options);
     yield put(
       useRegistrationActions.registerSuccess({
         email: action.payload.email,

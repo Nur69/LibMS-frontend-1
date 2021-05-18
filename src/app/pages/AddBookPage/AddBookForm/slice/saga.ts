@@ -1,8 +1,8 @@
 import { BOOK_ENDPOINTS } from 'app/configs/endpoints';
-import { getToken } from 'app/services/auth/tokens.service';
+import { AxiosRequestConfig } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import objectToFormData from 'utils/form-data';
-import { request } from 'utils/request';
+import request from 'utils/request';
 import { addBookActions as actions, addBookActions } from '.';
 import { Book } from './types';
 
@@ -21,13 +21,9 @@ export function* addBookSaga(action) {
       copiesNbr: action.payload.copiesNbr,
     };
     const formData = objectToFormData(book);
-    const accessToken = yield call(getToken);
-    const options = {
+    const options: AxiosRequestConfig = {
       method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + accessToken,
-      },
-      body: formData,
+      data: formData,
     };
     yield call(request, BOOK_ENDPOINTS.addBook, options);
     yield put(

@@ -1,21 +1,12 @@
 import { USER_ENDPOINTS } from 'app/configs/endpoints';
-import { getToken } from 'app/services/auth/tokens.service';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { request } from 'utils/request';
+import request from 'utils/request';
 import { userProfileActions as actions } from '.';
 import { User } from './types';
 
 function* fetchUserProfile() {
   try {
-    const accessToken = yield call(getToken);
-    const options: RequestInit = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + accessToken,
-      },
-    };
-    const user: User = yield call(request, USER_ENDPOINTS.profile, options);
+    const user: User = yield call(request.get, USER_ENDPOINTS.profile);
     yield put(actions.fetchProfileSuccess(user));
   } catch (error) {
     yield put(

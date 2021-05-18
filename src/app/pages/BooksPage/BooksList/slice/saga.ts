@@ -1,20 +1,11 @@
 import { BOOK_ENDPOINTS } from 'app/configs/endpoints';
-import { getToken } from 'app/services/auth/tokens.service';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { request } from 'utils/request';
+import request from 'utils/request';
 import { fetchBooksActions as actions, fetchBooksActions } from '.';
 
 export function* fetchBooksSaga(action) {
   try {
-    const accessToken = yield call(getToken);
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + accessToken,
-      },
-    };
-    const books = yield call(request, BOOK_ENDPOINTS.books, options);
+    const books = yield call(request.get, BOOK_ENDPOINTS.books);
     yield put(
       fetchBooksActions.FetchBooksSuccess({
         ...books,

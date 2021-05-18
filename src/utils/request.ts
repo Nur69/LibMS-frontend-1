@@ -1,60 +1,23 @@
-export class ResponseError extends Error {
-  public response: Response;
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { ErrorData } from './types/request-typings';
 
-  constructor(response: Response) {
-    super(response.statusText);
-    this.response = response;
-  }
-}
-/**
- * Parses the JSON returned by a network request
- *
- * @param  {object} response A response from a network request
- *
- * @return {object}          The parsed JSON from the request
- */
-function parseJSON(response: Response) {
-  if (response.status === 204 || response.status === 205) {
-    return null;
-  }
-  return response.json();
-}
+const instance = axios.create({
+  baseURL: process.env.REACT_APP_BACKEND_URL,
+  withCredentials: true,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});
 
-/**
- * Checks if a network request came back fine, and throws an error if not
- *
- * @param  {object} response   A response from a network request
- *
- * @return {object|undefined} Returns either the response, or throws an error
- */
-async function checkStatus(response: Response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const error = new ResponseError(response);
-  error.response = response;
-  error.message = (await response.json()).message;
-  throw error;
-}
+const onResponseSuccess = (response: AxiosResponse) => {
+  return response.data;
+};
+const onResponseError = (err: AxiosError<ErrorData>) => {
+  if (err.response) return Promise.reject(err.response.data);
+  return Promise.reject(err);
+};
 
-/**
- * Requests a URL, returning a promise
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- *
- * @return {object}           The response data
- */
-export async function request(
-  url: string,
-  options?: RequestInit,
-): Promise<{} | { err: ResponseError }> {
-  options = {
-    ...options,
-    mode: 'cors',
-    credentials: 'include',
-  };
-  const fetchResponse = await fetch(url, options);
-  const response = await checkStatus(fetchResponse);
-  return parseJSON(response);
-}
+instance.interceptors.response.use(onResponseSuccess, onResponseError);
+
+export default instance;

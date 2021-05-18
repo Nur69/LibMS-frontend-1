@@ -1,7 +1,6 @@
 import { RESERVATION_ENDPOINTS } from 'app/configs/endpoints';
-import { getToken } from 'app/services/auth/tokens.service';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { request } from 'utils/request';
+import request from 'utils/request';
 import {
   fetchReservationsActions as actions,
   fetchReservationsActions,
@@ -9,18 +8,9 @@ import {
 
 export function* fetchReservationsSaga(action) {
   try {
-    const accessToken = yield call(getToken);
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + accessToken,
-      },
-    };
     const reservations = yield call(
-      request,
+      request.get,
       RESERVATION_ENDPOINTS.reservations,
-      options,
     );
     yield put(
       fetchReservationsActions.FetchReservationsSuccess({

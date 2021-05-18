@@ -1,62 +1,32 @@
 import { AUTH_ENDPOINTS } from 'app/configs/endpoints';
-import {
-  clearToken,
-  getToken,
-  setToken,
-} from 'app/services/auth/tokens.service';
+import { clearToken, setToken } from 'app/services/auth/tokens.service';
+import { AxiosRequestConfig } from 'axios';
 import { call, cancelled, put, takeLatest } from 'redux-saga/effects';
-import { request } from 'utils/request';
+import request from 'utils/request';
 import { userActions as actions } from '.';
-
-export function* refreshTokenFlow(refreshToken) {
-  try {
-    // Try to refresh access token then store the new access token
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const { accessToken } = yield call(
-      request,
-      AUTH_ENDPOINTS.refresh,
-      options,
-    );
-    yield call(setToken, accessToken);
-
-    yield put(actions.refreshSuccess());
-    return accessToken;
-  } catch (e) {
-    yield call(clearToken);
-    yield put(actions.refreshFailed({ message: 'Session dropped' }));
-    return null;
-  }
-}
 
 function* loginUserSaga(action) {
   try {
-    const token = yield call(getToken);
-    const options: RequestInit = {
+    const options: AxiosRequestConfig = {
       method: 'POST',
-      body: JSON.stringify({
+      data: {
         email: action.payload.email,
         password: action.payload.password,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
       },
     };
-
     const { accessToken } = yield call(request, AUTH_ENDPOINTS.login, options);
+    console.log('EOAZOEAIZE', accessToken);
+    request.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer ${accessToken.token}`;
+    yield call(setToken, accessToken.token);
     yield put(
       actions.loginSuccess({
         email: action.payload.email,
       }),
     );
-
-    yield call(setToken, accessToken.token);
   } catch (error) {
+    console.log(error);
     yield put(
       actions.loginFailed({
         message: 'Login Failed: Please check your credentials',
