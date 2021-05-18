@@ -14,6 +14,7 @@ export interface Book {
   pageCount: number;
   overview?: string;
   publisher: string;
+  copiesNbr: number;
 }
 
 export interface AddBookState extends Book {

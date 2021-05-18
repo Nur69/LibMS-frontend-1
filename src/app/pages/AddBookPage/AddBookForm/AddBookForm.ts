@@ -11,4 +11,5 @@ export interface AddBookForm {
   image: FileList;
   pageCount: number;
   overview?: string;
+  copiesNbr: number;
 }

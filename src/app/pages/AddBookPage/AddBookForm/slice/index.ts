@@ -17,6 +17,7 @@ export const initialState: AddBookState = {
   pageCount: 0,
   overview: '',
   publisher: '',
+  copiesNbr: 0,
   isFetching: false,
   isSuccess: false,
   isError: false,
@@ -41,6 +42,7 @@ const slice = createSlice({
       state.publisher = action.payload.publisher;
       state.publishedDate = action.payload.publicationDate;
       state.pageCount = action.payload.pageCount;
+      state.copiesNbr = action.payload.copiesNbr;
 
       state.isSuccess = true;
       state.isError = false;

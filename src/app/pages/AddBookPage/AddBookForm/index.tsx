@@ -145,6 +145,15 @@ export function AddBook(props: IProps) {
               htmlFor="publicationDate"
               ariaLabel="publicationDate"
             />
+
+            <CustomInputField
+              required
+              title="Number Of Copies"
+              id="copiesNbr"
+              type="text"
+              htmlFor="copiesNbr"
+              ariaLabel="copiesNbr"
+            />
           </Col>
           <Col xs={6} md={4}>
             <CustomImageInput
