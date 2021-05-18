@@ -45,7 +45,7 @@ export function App() {
         />
       </Helmet>
       <Switch>
-        <UnauthenticatedRoute exact path="/" component={HomePage} />
+        <Route exact path="/" component={HomePage} />
         <UnauthenticatedRoute exact path="/auth" component={AuthPage} />
         <UnauthenticatedRoute exact path="/login" component={LoginPage} />
         <UnauthenticatedRoute exact path="/register" component={RegisterPage} />
