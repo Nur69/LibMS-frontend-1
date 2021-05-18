@@ -67,7 +67,7 @@ exports[`<UserProfilePage  /> should match snapshot 1`] = `
     </nav>
   </div>
   <div
-    class="text-left wrapper flex-grow-1 container"
+    class="text-center wrapper flex-grow-1 mt-5 container"
   >
     <div
       class="d-block mt-5 mb-5 font-weight-light"
@@ -79,16 +79,28 @@ exports[`<UserProfilePage  /> should match snapshot 1`] = `
         class="spinner-grow"
       />
     </div>
-    <a
-      href="/dashboard"
-    >
-      <button
-        class="btn btn-primary"
-        type="button"
+    <div>
+      <a
+        href="/dashboard/books"
       >
-         Continue to Dashboard
-      </button>
-    </a>
+        <button
+          class="mr-5 btn btn-primary"
+          type="button"
+        >
+           Continue to Dashboard
+        </button>
+      </a>
+      <a
+        href="/add-book"
+      >
+        <button
+          class="btn btn-primary"
+          type="button"
+        >
+           Add Book to inventory
+        </button>
+      </a>
+    </div>
   </div>
   <footer
     class="c2 text-lg-start"
