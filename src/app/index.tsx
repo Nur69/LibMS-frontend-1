@@ -15,14 +15,12 @@ import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { AuthenticatedRoute, UnauthenticatedRoute } from './guards/Routes';
 import { AddBookPage } from './pages/AddBookPage/Loadable';
 import { AuthPage } from './pages/AuthPage/Loadable';
-import { BookDescPage } from './pages/BookDescPage';
-import { BooksPage } from './pages/BooksPage/Loadable';
-import { DashboardPage } from './pages/DashboardPage/Loadable';
+import { DashboardPage } from './pages/DashboardPage';
 import { HomePage } from './pages/HomePage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
-import { UserProfilePage } from './pages/UserProfilePage/Loadable';
 import { ReservationsPage } from './pages/ReservationsPage';
+import { UserProfilePage } from './pages/UserProfilePage/Loadable';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -54,9 +52,7 @@ export function App() {
 
         <AuthenticatedRoute exact path="/user" component={UserProfilePage} />
         <AuthenticatedRoute exact path="/add-book" component={AddBookPage} />
-        <AuthenticatedRoute exact path="/dashboard" component={DashboardPage} />
-        <AuthenticatedRoute exact path="/books" component={BooksPage} />
-        <AuthenticatedRoute exact path="/books/:id" component={BookDescPage} />
+        <AuthenticatedRoute path="/dashboard" component={DashboardPage} />
         <AuthenticatedRoute
           exact
           path="/reservations"

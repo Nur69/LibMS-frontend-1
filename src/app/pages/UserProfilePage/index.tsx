@@ -6,8 +6,9 @@
 import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
 import * as React from 'react';
-import { Container, Spinner } from 'react-bootstrap';
+import { Button, Container, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useUserProfileSlice } from './slice';
 import {
   selectFirstName,
@@ -50,6 +51,9 @@ export function UserProfilePage(props: Props) {
             firstName + ' ' + lastName
           )}
         </div>
+        <Link to="/dashboard">
+          <Button> Continue to Dashboard</Button>
+        </Link>
       </Container>
       <Footer />
     </div>

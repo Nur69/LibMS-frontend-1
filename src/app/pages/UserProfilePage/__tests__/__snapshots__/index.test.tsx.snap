@@ -79,6 +79,16 @@ exports[`<UserProfilePage  /> should match snapshot 1`] = `
         class="spinner-grow"
       />
     </div>
+    <a
+      href="/dashboard"
+    >
+      <button
+        class="btn btn-primary"
+        type="button"
+      >
+         Continue to Dashboard
+      </button>
+    </a>
   </div>
   <footer
     class="c2 text-lg-start"

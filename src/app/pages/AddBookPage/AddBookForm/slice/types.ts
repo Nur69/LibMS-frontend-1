@@ -1,5 +1,8 @@
 import { Author } from '../../components/AuthorsAutoComplete/slice/types';
 
+interface Image {
+  name: string;
+}
 export interface Book {
   isbn: string;
   title: string;
@@ -7,7 +10,7 @@ export interface Book {
   originalTitle?: string;
   authors: Author[];
   publishedDate: string;
-  image: string;
+  image: Image;
   pageCount: number;
   overview?: string;
   publisher: string;
