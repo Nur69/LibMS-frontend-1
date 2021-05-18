@@ -30,11 +30,16 @@ export function RegisterForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showAlert, setShowAlert] = React.useState(true);
 
-  const alert = (
-    <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-      <p>{errorMessage}</p>
-    </Alert>
-  );
+  function AlertDismissible() {
+    if (isError && showAlert) {
+      return (
+        <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+          <Alert.Heading>{errorMessage}</Alert.Heading>
+        </Alert>
+      );
+    }
+    return null;
+  }
 
   const resolver = useYupValidationResolver(RegisterValidationScheme);
   const {
@@ -51,7 +56,7 @@ export function RegisterForm() {
       data-testid="registration-form"
       onSubmit={handleSubmit(onSubmit)}
     >
-      {!!isError && alert}
+      <AlertDismissible />
       <Form.Group>
         <Form.Label htmlFor="firstName">First name</Form.Label>
         <Form.Control
