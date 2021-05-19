@@ -5,10 +5,11 @@ exports[`<ReservationsPage  /> should match snapshot 1`] = `
   class="justify-content-center h-75 w-100 row"
 >
   <table
-    class="w-75 table table-striped table-bordered table-hover"
+    class="w-100 mr-5 ml-5 table table-striped table-bordered table-hover"
   >
     <thead>
       <tr
+        class="text-center"
         style="background-color: rgb(112, 112, 112); color: rgb(229, 229, 229); font-family: Lato;"
       >
         <th>
@@ -18,10 +19,7 @@ exports[`<ReservationsPage  /> should match snapshot 1`] = `
           ISBN
         </th>
         <th>
-          Number Of Copies
-        </th>
-        <th>
-          Email
+          Copies
         </th>
         <th>
           University ID
@@ -31,6 +29,9 @@ exports[`<ReservationsPage  /> should match snapshot 1`] = `
         </th>
         <th>
           Status
+        </th>
+        <th>
+          Actions
         </th>
       </tr>
     </thead>
