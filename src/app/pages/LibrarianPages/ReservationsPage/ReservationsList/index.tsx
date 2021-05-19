@@ -49,7 +49,7 @@ export const ReservationsList = memo(() => {
             <td>{reservation.book.copiesNbr}</td>
             <td>{reservation.user.email}</td>
             <td>{reservation.user.universityID}</td>
-            <td>{reservation.reservationDate.substring(0, 10)}</td>
+            <td>{reservation.reservedAt.substring(0, 10)}</td>
             <td>
               {reservation.reservationStatus.charAt(0).toUpperCase() +
                 reservation.reservationStatus.slice(1)}

@@ -3,7 +3,7 @@ import { Book } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/slice/typ
 
 export interface Reservation {
   book: Book;
-  reservationDate: string;
+  reservedAt: string;
   user: User;
   reservationStatus: string;
 }
