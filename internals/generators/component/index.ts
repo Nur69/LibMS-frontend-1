@@ -2,11 +2,10 @@
  * Component Generator
  */
 
-import { Actions, PlopGeneratorConfig } from 'node-plop';
 import inquirer from 'inquirer';
-
-import { pathExists } from '../utils';
+import { Actions, PlopGeneratorConfig } from 'node-plop';
 import { baseGeneratorPath } from '../paths';
+import { pathExists } from '../utils';
 
 inquirer.registerPrompt('directory', require('inquirer-directory'));
 
@@ -18,6 +17,7 @@ export enum ComponentProptNames {
   wantTranslations = 'wantTranslations',
   wantLoadable = 'wantLoadable',
   wantTests = 'wantTests',
+  wantTestsWithRouter = 'wantTestsWithRouter',
 }
 
 type Answers = { [P in ComponentProptNames]: string };
@@ -66,6 +66,12 @@ export const componentGenerator: PlopGeneratorConfig = {
       name: ComponentProptNames.wantTests,
       default: false,
       message: 'Do you want to have tests?',
+    },
+    {
+      type: 'confirm',
+      name: ComponentProptNames.wantTestsWithRouter,
+      default: false,
+      message: 'Do you want the tests to render with router?',
     },
   ],
   actions: data => {

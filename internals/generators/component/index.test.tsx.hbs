@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
-
+{{#if wantTestsWithRouter}}
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { configureAppStore } from 'store/configureStore';
+{{/if}}
 import { {{ properCase componentName }} } from '..';
 
 {{#if wantTranslations}}
@@ -16,9 +21,31 @@ jest.mock('react-i18next', () => ({
 }));
 {{/if}}
 
+{{#if wantTestsWithRouter}}
+const store = configureAppStore();
+
+const renderWithRouter = (component: JSX.Element) => {
+  const history = createMemoryHistory();
+  return {
+    ...render(
+      <Provider store={store}>
+        <Router history={history}>{component}</Router>{' '}
+      </Provider>,
+    ),
+  };
+};
+
+describe('<{{ properCase componentName }}  />', () => {
+  it('should match snapshot', () => {
+    const loadingIndicator = renderWithRouter(<{{ properCase componentName }} />);
+    expect(loadingIndicator.container.firstChild).toMatchSnapshot();
+  });
+});
+{{else}}
 describe('<{{ properCase componentName }}  />', () => {
   it('should match snapshot', () => {
     const loadingIndicator = render(<{{ properCase componentName }} />);
     expect(loadingIndicator.container.firstChild).toMatchSnapshot();
   });
 });
+{{/if}}
