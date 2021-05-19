@@ -1,4 +1,5 @@
 import { Sidebar } from 'app/components/Sidebar';
+import React from 'react';
 import {
   Badge,
   Col,
@@ -14,7 +15,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { BookDescPage } from '../BookDescPage';
 import { BooksPage } from '../BooksPage/Loadable';
 import { ReservationsPage } from '../ReservationsPage';
-
 export function DashboardPage() {
   return (
     <Router>
@@ -46,7 +46,7 @@ export function DashboardPage() {
                       <Dropdown.Item>Profile</Dropdown.Item>
                       <Dropdown.Item>Security</Dropdown.Item>
                       <Dropdown.Divider />
-                      <Dropdown.Item>Log Out</Dropdown.Item>
+                      <Dropdown.Item href="/logout">Sign out</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                   <Dropdown className="ml-5 ">

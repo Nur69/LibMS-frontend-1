@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { watchUserLogout } from './saga';
 
@@ -14,7 +13,7 @@ const slice = createSlice({
   name: 'logoutUser',
   initialState,
   reducers: {
-    requestLogout(state, action: PayloadAction<any>) {
+    requestLogout(state) {
       state.isFetching = true;
     },
     logoutSuccess(state) {

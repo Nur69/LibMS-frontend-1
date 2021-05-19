@@ -9,7 +9,7 @@ export function* logoutUserSaga(action) {
   } catch (error) {
     yield put(
       useLogoutActions.logoutFailed({
-        message: 'Logout Failed: Please retry',
+        message: 'Logout failed: Please retry',
       }),
     );
   }

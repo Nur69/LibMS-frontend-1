@@ -15,9 +15,10 @@ import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { AuthenticatedRoute, UnauthenticatedRoute } from './guards/Routes';
 import { AddBookPage } from './pages/AddBookPage/Loadable';
 import { AuthPage } from './pages/AuthPage/Loadable';
-import { DashboardPage } from './pages/DashboardPage';
+import { DashboardPage } from './pages/DashboardPage/Loadable';
 import { HomePage } from './pages/HomePage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
+import { LogoutPage } from './pages/LogoutPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
 import { ReservationsPage } from './pages/ReservationsPage';
 import { UserProfilePage } from './pages/UserProfilePage/Loadable';
@@ -50,6 +51,7 @@ export function App() {
         <UnauthenticatedRoute exact path="/login" component={LoginPage} />
         <UnauthenticatedRoute exact path="/register" component={RegisterPage} />
 
+        <AuthenticatedRoute exact path="/logout" component={LogoutPage} />
         <AuthenticatedRoute exact path="/user" component={UserProfilePage} />
         <AuthenticatedRoute exact path="/add-book" component={AddBookPage} />
         <AuthenticatedRoute path="/dashboard" component={DashboardPage} />

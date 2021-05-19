@@ -27,9 +27,13 @@ const AuthenticatedRoute = ({ component: Component, ...rest }) => {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
-    isAuthenticated().then(bool =>
-      setTimeout(() => setAuthenticated(bool), 200),
-    );
+    if (getToken()) {
+      isAuthenticated().then(bool =>
+        setTimeout(() => setAuthenticated(bool), 200),
+      );
+    } else {
+      setAuthenticated(false);
+    }
   }, []);
 
   return (
@@ -50,9 +54,13 @@ const AuthenticatedRoute = ({ component: Component, ...rest }) => {
 const UnauthenticatedRoute = ({ component: Component, ...rest }) => {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   useEffect(() => {
-    isAuthenticated().then(bool =>
-      setTimeout(() => setAuthenticated(bool), 200),
-    );
+    if (getToken()) {
+      isAuthenticated().then(bool =>
+        setTimeout(() => setAuthenticated(bool), 200),
+      );
+    } else {
+      setAuthenticated(false);
+    }
   }, []);
   return (
     <Route

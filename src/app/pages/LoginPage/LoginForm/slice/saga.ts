@@ -15,7 +15,6 @@ function* loginUserSaga(action) {
       },
     };
     const { accessToken } = yield call(request, AUTH_ENDPOINTS.login, options);
-    console.log('EOAZOEAIZE', accessToken);
     request.defaults.headers.common[
       'Authorization'
     ] = `Bearer ${accessToken.token}`;
