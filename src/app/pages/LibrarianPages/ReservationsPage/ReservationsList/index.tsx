@@ -1,5 +1,5 @@
 import { memo, useEffect } from 'react';
-import { Table, Col, Button } from 'react-bootstrap';
+import { Table, Col, Button, Badge } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetchReservationsSlice } from './slice';
 import { selectReservations } from './slice/selectors';
@@ -26,10 +26,18 @@ export const ReservationsList = memo(() => {
     dispatch(actions.requestFetchReservations());
   });
 
+  const acceptReservation = () => console.log('hello');
+
+  const statusToBadge = {
+    pending: 'warning',
+    active: 'success',
+    rejected: 'alert',
+  };
   return (
     <Table className="w-100 mr-5 ml-5" striped bordered hover>
       <thead>
         <tr
+          key={1}
           className="text-center"
           style={{
             backgroundColor: '#707070',
@@ -37,49 +45,34 @@ export const ReservationsList = memo(() => {
             fontFamily: 'Lato',
           }}
         >
-          {features.map(feature => (
-            <th>{feature}</th>
+          {features.map((feature, i) => (
+            <th key={i * 10}>{feature}</th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {reservationsSelected.reservations.map(reservation => (
-          <tr className="text-center">
+        {reservationsSelected.reservations.map((reservation, i) => (
+          <tr key={i + 1} className="text-center">
             <td className="col-2">{reservation.book.title}</td>
             <td className="col-1">{reservation.book.isbn}</td>
             <td className="col-1">{reservation.book.copiesNbr}</td>
             <td className="col-2">{reservation.user.universityID}</td>
             <td className="col-2">{reservation.reservedAt.substring(0, 10)}</td>
             <td className="col-1">
-              {(() => {
-                if (reservation.reservationStatus === 'pending') {
-                  return (
-                    <div className="badge badge-pill badge-warning">
-                      {reservation.reservationStatus.charAt(0).toUpperCase() +
-                        reservation.reservationStatus.slice(1)}
-                    </div>
-                  );
-                } else if (reservation.reservationStatus === 'active') {
-                  return (
-                    <span className="badge badge-pill badge-success">
-                      {reservation.reservationStatus.charAt(0).toUpperCase() +
-                        reservation.reservationStatus.slice(1)}
-                    </span>
-                  );
-                } else if (reservation.reservationStatus === 'rejected') {
-                  return (
-                    <span className="badge badge-pill badge-danger">
-                      {reservation.reservationStatus.charAt(0).toUpperCase() +
-                        reservation.reservationStatus.slice(1)}
-                    </span>
-                  );
-                }
-              })()}
+              <Badge variant={statusToBadge[reservation.reservationStatus]}>
+                {reservation.reservationStatus.charAt(0).toUpperCase() +
+                  reservation.reservationStatus.slice(1)}
+              </Badge>
             </td>
             <td className="col-3">
               <div className="d-flex flex-row">
                 <Col xs={6}>
-                  <Button className="w-100 btn-success btn-sm">Accept</Button>
+                  <Button
+                    onClick={acceptReservation}
+                    className="w-100 btn-success btn-sm"
+                  >
+                    Accept
+                  </Button>
                 </Col>
                 <Col xs={6}>
                   <Button className="btn-danger w-100 btn-sm">Deny</Button>
