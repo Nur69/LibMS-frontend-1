@@ -1,5 +1,5 @@
-import { Book } from 'app/pages/AddBookPage/AddBookForm/slice/types';
-import { User } from 'app/pages/UserProfilePage/slice/types';
+import { User } from 'app/pages/CommonPages/UserProfilePage/slice/types';
+import { Book } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/slice/types';
 
 export interface Reservation {
   book: Book;

@@ -1,4 +1,4 @@
-import { Book } from 'app/pages/AddBookPage/AddBookForm/slice/types';
+import { Book } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/slice/types';
 
 export interface BooksState {
   books: Book[];

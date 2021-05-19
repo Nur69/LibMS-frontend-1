@@ -14,8 +14,7 @@ const slice = createSlice({
   name: 'addBookAuthors',
   initialState,
   reducers: {
-    someAction(state, action: PayloadAction<any>) {},
-    requestAuthors(state, action: PayloadAction<any>) {
+    requestAuthors(state) {
       state.isFetching = true;
     },
     requestAuthorsSuccess(state, action: PayloadAction<any>) {

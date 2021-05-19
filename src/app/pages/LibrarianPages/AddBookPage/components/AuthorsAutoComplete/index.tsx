@@ -4,7 +4,6 @@
  *
  */
 import { RequiredFormLabel } from 'app/components/RequiredFormLabel';
-import { selectAccessToken } from 'app/pages/LoginPage/LoginForm/slice/selectors';
 import * as React from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
@@ -31,11 +30,10 @@ export function AuthorsAutoComplete(props: IProps) {
   const dispatch = useDispatch();
   const { actions } = useAddBookAuthorsSlice();
 
-  const accessToken = useSelector(selectAccessToken);
   const authorsList = useSelector(selectAuthors);
 
   React.useEffect(() => {
-    dispatch(actions.requestAuthors({ accessToken }));
+    dispatch(actions.requestAuthors());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

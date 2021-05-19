@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { Header } from '../../components/Header';
+import { Header } from '../../../components/Header';
 
 interface Props {}
 

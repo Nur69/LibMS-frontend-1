@@ -13,15 +13,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { AuthenticatedRoute, UnauthenticatedRoute } from './guards/Routes';
-import { AddBookPage } from './pages/AddBookPage/Loadable';
-import { AuthPage } from './pages/AuthPage/Loadable';
-import { DashboardPage } from './pages/DashboardPage/Loadable';
-import { HomePage } from './pages/HomePage/Loadable';
-import { LoginPage } from './pages/LoginPage/Loadable';
-import { LogoutPage } from './pages/LogoutPage/Loadable';
-import { RegisterPage } from './pages/RegisterPage/Loadable';
-import { ReservationsPage } from './pages/ReservationsPage';
-import { UserProfilePage } from './pages/UserProfilePage/Loadable';
+import { AuthPage } from './pages/CommonPages/AuthPage/Loadable';
+import { HomePage } from './pages/CommonPages/HomePage/Loadable';
+import { LoginPage } from './pages/CommonPages/LoginPage/Loadable';
+import { LogoutPage } from './pages/CommonPages/LogoutPage/Loadable';
+import { RegisterPage } from './pages/CommonPages/RegisterPage/Loadable';
+import { UserProfilePage } from './pages/CommonPages/UserProfilePage/Loadable';
+import { AddBookPage } from './pages/LibrarianPages/AddBookPage/Loadable';
+import { DashboardPage } from './pages/LibrarianPages/DashboardPage/Loadable';
+import { ReservationsPage } from './pages/LibrarianPages/ReservationsPage';
 
 export function App() {
   const { i18n } = useTranslation();
