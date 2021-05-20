@@ -1,6 +1,8 @@
 import { memo, useEffect } from 'react';
 import { Table, Col, Button, Badge } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAcceptReservationSlice } from '../components/AcceptButton/slice';
+import { AcceptReservation } from '../components/AcceptButton/slice/types';
 import { useFetchReservationsSlice } from './slice';
 import { selectReservations } from './slice/selectors';
 
@@ -26,7 +28,12 @@ export const ReservationsList = memo(() => {
     dispatch(actions.requestFetchReservations());
   });
 
-  const acceptReservation = () => console.log('hello');
+  const { acceptReservationActions } = useAcceptReservationSlice();
+
+  const acceptReservation = (data: AcceptReservation): void => {
+    console.log(data);
+    dispatch(acceptReservationActions.requestAcceptReservation(data));
+  };
 
   const statusToBadge = {
     pending: 'warning',
@@ -68,7 +75,7 @@ export const ReservationsList = memo(() => {
               <div className="d-flex flex-row">
                 <Col xs={6}>
                   <Button
-                    onClick={acceptReservation}
+                    onClick={() => acceptReservation({ id: reservation.id })}
                     className="w-100 btn-success btn-sm"
                   >
                     Accept

@@ -6,6 +6,7 @@ export interface Reservation {
   reservedAt: string;
   user: User;
   reservationStatus: string;
+  id: string;
 }
 
 export interface ReservationsState {

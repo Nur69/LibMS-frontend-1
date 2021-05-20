@@ -9,3 +9,18 @@ export const selectReservations = createSelector(
   [selectSlice],
   addReservationsFormState => addReservationsFormState,
 );
+
+export const selectIsFetching = createSelector(
+  [selectSlice],
+  addReservationsFormState => addReservationsFormState.isFetching,
+);
+
+export const selectIsSuccess = createSelector(
+  [selectSlice],
+  addReservationsFormState => addReservationsFormState.isSuccess,
+);
+
+export const selectIsError = createSelector(
+  [selectSlice],
+  addReservationsFormState => addReservationsFormState.isError,
+);

@@ -18,6 +18,7 @@ export const USER_ENDPOINTS = {
 
 export const RESERVATION_ENDPOINTS = {
   reservations: `${API_PREFIX}/reservation/reservations`,
+  acceptReservation: `${API_PREFIX}/reservation/accept-reservation`,
 };
 
 export const ASSETS_ENDPOINTS = {

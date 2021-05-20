@@ -22,6 +22,7 @@ const slice = createSlice({
       state.reservations = action.payload.reservations;
       state.isSuccess = true;
       state.isError = false;
+      state.isFetching = false;
       return state;
     },
   },
