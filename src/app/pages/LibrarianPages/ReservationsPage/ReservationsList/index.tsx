@@ -1,10 +1,9 @@
-import { memo, useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Table, Col, Button, Badge } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useAcceptReservationSlice } from '../components/AcceptButton/slice';
-import { AcceptReservation } from '../components/AcceptButton/slice/types';
 import { useFetchReservationsSlice } from './slice';
 import { selectReservations } from './slice/selectors';
+import { ReservationId } from './slice/types';
 
 const features = [
   'Book',
@@ -15,26 +14,23 @@ const features = [
   'Status',
   'Actions',
 ];
+
 export const ReservationsList = memo(() => {
   const { actions } = useFetchReservationsSlice();
   const dispatch = useDispatch();
   const reservationsSelected = useSelector(selectReservations);
+  console.log('Before: ', reservationsSelected);
   const useEffectOnMount = (effect: React.EffectCallback) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(effect, []);
   };
-
   useEffectOnMount(() => {
     dispatch(actions.requestFetchReservations());
   });
 
-  const { acceptReservationActions } = useAcceptReservationSlice();
-
-  const acceptReservation = (data: AcceptReservation): void => {
-    console.log(data);
-    dispatch(acceptReservationActions.requestAcceptReservation(data));
+  const handleAcceptReservation = (id: ReservationId): void => {
+    dispatch(actions.requestAcceptReservation(id));
   };
-
   const statusToBadge = {
     pending: 'warning',
     active: 'success',
@@ -75,7 +71,9 @@ export const ReservationsList = memo(() => {
               <div className="d-flex flex-row">
                 <Col xs={6}>
                   <Button
-                    onClick={() => acceptReservation({ id: reservation.id })}
+                    onClick={() =>
+                      handleAcceptReservation({ id: reservation.id })
+                    }
                     className="w-100 btn-success btn-sm"
                   >
                     Accept

@@ -1,10 +1,11 @@
 import { RESERVATION_ENDPOINTS } from 'app/configs/endpoints';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
 import {
   fetchReservationsActions as actions,
   fetchReservationsActions,
 } from '.';
+import { acceptReservationSaga } from '../../AcceptReservation/saga';
 
 export function* fetchReservationsSaga(action) {
   try {
@@ -19,14 +20,19 @@ export function* fetchReservationsSaga(action) {
     );
   } catch (error) {
     if (error.response?.status !== 200) {
-      console.log('Error');
+      // console.log('Error');
     }
   }
 }
-
 export function* fetchReservationsRootState() {
-  yield takeLatest(
-    actions.requestFetchReservations.type,
-    fetchReservationsSaga,
-  );
+  yield all([
+    yield takeLatest(
+      actions.requestFetchReservations.type,
+      fetchReservationsSaga,
+    ),
+    yield takeLatest(
+      actions.requestAcceptReservation.type,
+      acceptReservationSaga,
+    ),
+  ]);
 }
