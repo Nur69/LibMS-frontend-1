@@ -9,7 +9,7 @@ import { AddBookAuthorsState } from 'app/pages/LibrarianPages/AddBookPage/compon
 import { BooksState } from 'app/pages/LibrarianPages/BooksPage/BooksList/slice/types';
 import { AcceptReservationState } from 'app/pages/LibrarianPages/ReservationsPage/components/AcceptButton/slice/types';
 import { ReservationsState } from 'app/pages/LibrarianPages/ReservationsPage/ReservationsList/slice/types';
-
+import { DenyReservationState } from 'app/pages/LibrarianPages/ReservationsPage/components/DenyButton/slice/types';
 /* 
   Because the redux-injectors injects your reducers asynchronously somewhere in your code
   You have to declare them here manually
@@ -25,4 +25,5 @@ export interface RootState {
   userProfile: UserProfileState;
   reservations: ReservationsState;
   acceptReservation: AcceptReservationState;
+  denyReservation: DenyReservationState;
 }

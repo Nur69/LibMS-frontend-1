@@ -3,6 +3,8 @@ import { Table, Col, Button, Badge } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAcceptReservationSlice } from '../components/AcceptButton/slice';
 import { AcceptReservation } from '../components/AcceptButton/slice/types';
+import { useDenyReservationSlice } from '../components/DenyButton/slice';
+import { DenyReservation } from '../components/DenyButton/slice/types';
 import { useFetchReservationsSlice } from './slice';
 import { selectReservations } from './slice/selectors';
 
@@ -29,10 +31,15 @@ export const ReservationsList = memo(() => {
   });
 
   const { acceptReservationActions } = useAcceptReservationSlice();
+  const { denyReservationActions } = useDenyReservationSlice();
 
   const acceptReservation = (data: AcceptReservation): void => {
     console.log(data);
     dispatch(acceptReservationActions.requestAcceptReservation(data));
+  };
+  const denyReservation = (data: DenyReservation): void => {
+    console.log(data);
+    dispatch(denyReservationActions.requestDenyReservation(data));
   };
 
   const statusToBadge = {
@@ -82,7 +89,12 @@ export const ReservationsList = memo(() => {
                   </Button>
                 </Col>
                 <Col xs={6}>
-                  <Button className="btn-danger w-100 btn-sm">Deny</Button>
+                  <Button
+                    onClick={() => denyReservation({ id: reservation.id })}
+                    className="btn-danger w-100 btn-sm"
+                  >
+                    Deny{' '}
+                  </Button>
                 </Col>
               </div>
             </td>

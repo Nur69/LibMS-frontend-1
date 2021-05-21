@@ -15,3 +15,7 @@ export interface ReservationsState {
   isError: boolean;
   isSuccess: boolean;
 }
+
+export interface DenyReservationResponse {
+  id: string;
+}
