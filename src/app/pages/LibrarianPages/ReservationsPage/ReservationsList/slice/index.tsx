@@ -44,6 +44,7 @@ const slice = createSlice({
           acceptedReservation.reservationStatus =
             action.payload.reservationStatus;
           acceptedReservation.book.copiesNbr = action.payload.copiesNbr;
+          acceptedReservation.returnDate = action.payload.returnDate;
           return null;
         });
       state.isSuccess = true;

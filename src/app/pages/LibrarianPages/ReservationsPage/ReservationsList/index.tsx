@@ -11,6 +11,7 @@ const features = [
   'Copies',
   'University ID',
   'Date of Reservation',
+  'Return Date',
   'Status',
   'Actions',
 ];
@@ -31,6 +32,7 @@ export const ReservationsList = memo(() => {
   const handleAcceptReservation = (id: ReservationId): void => {
     dispatch(actions.requestAcceptReservation(id));
   };
+
   const statusToBadge = {
     pending: 'warning',
     active: 'success',
@@ -55,32 +57,38 @@ export const ReservationsList = memo(() => {
       </thead>
       <tbody>
         {reservationsSelected.reservations.map((reservation, i) => (
-          <tr key={i + 1} className="text-center">
-            <td className="col-2">{reservation.book.title}</td>
+          <tr key={i + 1} className="text-center align-items-center">
+            <td className="col-3">{reservation.book.title}</td>
             <td className="col-1">{reservation.book.isbn}</td>
             <td className="col-1">{reservation.book.copiesNbr}</td>
             <td className="col-2">{reservation.user.universityID}</td>
             <td className="col-2">{reservation.reservedAt.substring(0, 10)}</td>
+            <td className="col-2">
+              {reservation.returnDate
+                ? reservation.returnDate.substring(0, 10)
+                : 'N/A'}
+            </td>
             <td className="col-1">
               <Badge variant={statusToBadge[reservation.reservationStatus]}>
                 {reservation.reservationStatus.charAt(0).toUpperCase() +
                   reservation.reservationStatus.slice(1)}
               </Badge>
             </td>
-            <td className="col-3">
+            <td className="col-1">
               <div className="d-flex flex-row">
                 <Col xs={6}>
                   <Button
+                    disabled={reservation.reservationStatus === 'active'}
                     onClick={() =>
                       handleAcceptReservation({ id: reservation.id })
                     }
-                    className="w-100 btn-success btn-sm"
+                    className="btn-success btn-sm"
                   >
                     Accept
                   </Button>
                 </Col>
                 <Col xs={6}>
-                  <Button className="btn-danger w-100 btn-sm">Deny</Button>
+                  <Button className="btn-danger btn-sm">Deny</Button>
                 </Col>
               </div>
             </td>

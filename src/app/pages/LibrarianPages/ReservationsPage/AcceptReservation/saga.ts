@@ -10,7 +10,7 @@ export function* acceptReservationSaga(action) {
       id: action.payload.id,
     };
     const options: AxiosRequestConfig = {
-      method: 'POST',
+      method: 'PATCH',
     };
     const acceptedReservation = yield call(
       request,
