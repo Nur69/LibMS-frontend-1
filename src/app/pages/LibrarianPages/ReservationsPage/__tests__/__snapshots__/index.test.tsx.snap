@@ -28,6 +28,9 @@ exports[`<ReservationsPage  /> should match snapshot 1`] = `
           Date of Reservation
         </th>
         <th>
+          Return Date
+        </th>
+        <th>
           Status
         </th>
         <th>
